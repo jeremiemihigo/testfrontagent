@@ -5,6 +5,9 @@ import { Input } from 'antd'
 import { Typography, Button, Paper, CircularProgress } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { ReadUser } from './Redux/user';
+
 
 function Login() {
   const [initial, setInitial] = React.useState({
@@ -21,6 +24,7 @@ function Login() {
       [name]: value,
     })
   }
+  const dispatch = useDispatch()
   const onsubmit = async (e) => {
     e.preventDefault()
     setSending(true)
@@ -29,6 +33,8 @@ function Login() {
     
       if (response.data.token) {
         localStorage.setItem('auth', response.data.token)
+       
+        dispatch(ReadUser())
         navigation("/operation")
         setSending(false)
       } else {
@@ -40,6 +46,7 @@ function Login() {
       setSending(false)
     }
   }
+
 
   return (
     <div className="screen">
