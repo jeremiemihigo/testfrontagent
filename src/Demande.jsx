@@ -20,7 +20,6 @@ function Demande({ title }) {
   const raisonRedux = useSelector((state) => state.raison?.raison)
   const [valueRaison, setValueRaison] = React.useState('')
   const [showAutre, setAutre] = React.useState(false)
-  const userConnect = useSelector(state=>state.user?.user)
 
   React.useEffect(() => {
     if (valueRaison !== '' && valueRaison.raison === 'Autres') {
@@ -79,8 +78,8 @@ function Demande({ title }) {
         datas.append('longitude', location?.longitude)
         datas.append('latitude', location?.latitude)
         datas.append('altitude', location?.altitude)
-        datas.append('codeAgent', userConnect && userConnect.codeAgent)
-        datas.append('codeZone', userConnect && userConnect.codeZone)
+        datas.append('codeAgent', localStorage.getItem("codeAgent"))
+        datas.append('codeZone', localStorage.getItem("codeZone"))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
         datas.append('raison',  raison)

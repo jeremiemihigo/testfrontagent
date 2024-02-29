@@ -4,14 +4,12 @@ import { Input } from 'antd'
 import { Button } from '@mui/material'
 import axios from 'axios'
 import { lien } from './Static'
-import { useSelector } from 'react-redux'
 
 function Profil({title}) {
 
   const [initial, setInitial] = React.useState()
   const [sendIng, setSendIng] = React.useState(false)
   const [message, setMessage] = React.useState("")
-  const userConnect = useSelector(state=>state.user?.user)
   
   const change =(e)=>{
     setMessage("")
@@ -28,7 +26,7 @@ function Profil({title}) {
     setMessage("")
     try {
       const response = await axios.put(lien+"/userId", {
-        codeAgent : userConnect && userConnect.codeAgent,
+        codeAgent : localStorage.getItem("codeAgent"),
         ancien : initial?.ancien,
         nouvelle : initial?.nouvelle 
       })
@@ -54,13 +52,13 @@ function Profil({title}) {
         <Input
           placeholder="Nom"
           disabled
-          value={userConnect && userConnect?.nom}
+          value={localStorage.getItem("nom")}
         />
       </div>
       <Input
         placeholder="Code Agent"
         disabled
-        value={userConnect && userConnect?.codeAgent}
+        value={localStorage.getItem("codeAgent")}
       />
       <p style={{textAlign:"center", marginTop:"10px", fontSize:"12px", fontWeight:"bolder"}}>Modifiez le mot de passe</p>
       {message !== "" && <p style={{textAlign:"center", fontWeight:"bolder", color:"red", fontSize:"10px", margin:"10px"}}>{message}</p>}

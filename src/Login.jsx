@@ -32,8 +32,11 @@ function Login() {
       const response = await axios.post(lien + '/login', initial)
     
       if (response.data.token) {
+
         localStorage.setItem('auth', response.data.token)
-       
+        localStorage.setItem('codeAgent', response.data.codeAgent)
+        localStorage.setItem('codeZone', response.data.codeZone)
+        localStorage.setItem('nom', response.data.nom)
         dispatch(ReadUser())
         navigation("/operation")
         setSending(false)

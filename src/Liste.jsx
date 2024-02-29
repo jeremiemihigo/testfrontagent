@@ -6,19 +6,17 @@ import './demandeListe.css'
 import { Typography, CircularProgress, Box } from '@mui/material'
 import Popup from './Control/Popup'
 import FormReclamation from './FormReclamation'
-import { useSelector } from 'react-redux'
 
 function Liste({ lot }) {
   const [data, setData] = React.useState()
   const [open, setOpen] = React.useState(false)
   const [load, setLoad] = React.useState(false)
   const [_id, setId] = React.useState()
-  const userConnect = useSelector(state=>state.user?.user)
   const loadingListe = async () => {
     setLoad(true)
     try {
       const response = await axios.get(
-        `${lien}/demandeAll/${lot}/${userConnect.codeAgent}`, config
+        `${lien}/demandeAll/${lot}/${localStorage.getItem("codeAgent")}`, config
       )
       setData(response.data)
       setLoad(false)

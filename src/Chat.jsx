@@ -7,27 +7,25 @@ import { Typography, CircularProgress, Grid } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import Popup from './Control/Popup'
 import FormReclamation from './FormReclamation'
-import { useSelector } from 'react-redux'
 
 function Chat({ title }) {
   const [data, setData] = React.useState()
   const [idDelete, setIdDelete] = React.useState('')
-  const userConnect = useSelector((state) => state.user?.user)
   const loading = async () => {
-    if (userConnect) {
+    
       try {
         const response = await axios.get(
-          `${lien}/message/${userConnect?.codeAgent}`,
+          `${lien}/message/${localStorage.getItem("codeAgent")}`,
         )
         setData(response.data)
       } catch (error) {
         console.log(error)
       }
-    }
+    
   }
   React.useEffect(() => {
     loading()
-  }, [userConnect])
+  }, [])
 
   const deleteOne = async (id) => {
     setIdDelete(id)

@@ -57,6 +57,9 @@ export default function BasicTabs() {
   const deconnection = (e) => {
     e.preventDefault()
     localStorage.removeItem('auth')
+    localStorage.removeItem('nom')
+    localStorage.removeItem('codeAgent')
+    localStorage.removeItem('codeZone')
     navigation('/')
   }
 
@@ -77,10 +80,10 @@ export default function BasicTabs() {
             noWrap
             sx={{ width: '60%', textAlign: 'center' }}
           >
-            {userConnect && userConnect?.nom}
+            {localStorage.getItem("nom")}
           </Typography>
           <Typography component="p" sx={{ width: '20%' }}>
-            {userConnect && userConnect?.codeAgent}
+            {localStorage.getItem("codeAgent")}
           </Typography>
           <Typography
             component="p"

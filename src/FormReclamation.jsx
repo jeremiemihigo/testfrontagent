@@ -5,14 +5,12 @@ import axios from 'axios'
 import React from 'react'
 import { lien } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
-import { useSelector } from 'react-redux'
 
 function FormReclamation({ id, data, setData }) {
   const [initial, setInitial] = React.useState('')
   const [sending, setSendIng] = React.useState(false)
   const [open, setOpen] = React.useState(true)
   const [message, setMessage] = React.useState()
-  const userConnect = useSelector(state=>state.user?.user)
 
   const sendData = async (e) => {
     e.preventDefault()
@@ -20,7 +18,7 @@ function FormReclamation({ id, data, setData }) {
     try {
       const response = await axios.post(lien + '/reclamation', {
         _id: id,
-        codeAgent : userConnect && userConnect?.codeAgent,
+        codeAgent : localStorage.getItem("codeAgent"),
         sender: 'agent',
         message: initial,
       })

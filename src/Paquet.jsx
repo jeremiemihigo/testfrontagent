@@ -4,31 +4,29 @@ import { lien, config } from './Static.jsx'
 import React from 'react'
 import { CircularProgress, Box, Typography } from '@mui/material'
 import Liste from './Liste.jsx'
-import { useSelector } from 'react-redux'
 
 function Paquet({title}) {
   const [data, setData] = React.useState()
   const [load, setLoad] = React.useState(false)
   const [lotSelect, setLotSelect] = React.useState()
-  const userConnect = useSelector(state=>state.user?.user)
   const loading = async () => {
-   if(userConnect){
+   
     setLoad(true)
     try {
       const response = await axios.get(
-        `${lien}/paquet/${userConnect.codeAgent}`, config
+        `${lien}/paquet/${localStorage.getItem("codeAgent")}`, config
       )
       setData(response.data)
       setLoad(false)
     } catch (error) {
       console.log(error)
     }
-   }
+   
   }
   React.useEffect(() => {
     loading()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userConnect])
+  }, [])
 
   return (
     <div>
