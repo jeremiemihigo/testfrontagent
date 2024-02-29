@@ -50,7 +50,6 @@ function Login() {
     }
   }
 
-
   return (
     <div className="screen">
       <motion.div
@@ -100,5 +99,4 @@ function Login() {
     </div>
   )
 }
-
 export default Login

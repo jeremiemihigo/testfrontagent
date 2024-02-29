@@ -40,3 +40,23 @@
     text-align: right;
     float: right;
 }
+.itemButtons{
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+.itemButtons > div{
+    width: 50%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    background-color: rgb(233, 233, 241);
+}
+.itemButtons >div >span{
+    font-size: 12px;
+    margin-left: 10px;
+}

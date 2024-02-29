@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Input } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Selected from './Control/Select'
 import { Button, Grid } from '@mui/material'
 import axios from 'axios'
-import { lien } from './Static'
+import { lien, lien_image } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
 import { Language, Send, Clear } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import AutoComplement from './Control/AutoComplete'
 
-function Demande({ title }) {
+function UpdateDemande({ demande }) {
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
@@ -77,31 +78,31 @@ function Demande({ title }) {
         datas.append('longitude', location?.longitude)
         datas.append('latitude', location?.latitude)
         datas.append('altitude', location?.altitude)
-        datas.append('codeAgent', localStorage.getItem("codeAgent"))
-        datas.append('codeZone', localStorage.getItem("codeZone"))
+        datas.append('codeAgent', localStorage.getItem('codeAgent'))
+        datas.append('codeZone', localStorage.getItem('codeZone'))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
-        datas.append('raison',  raison)
+        datas.append('raison', raison)
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
         datas.append('sat', initial?.sat)
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
+        datas.append("id", demande._id)
 
-        const response = await axios.post(lien + '/demande', datas)
-    
+        const response = await axios.put(lien + '/updateDemande', datas)
+
         if (response.data?._id) {
           setLocation(null)
           const form = document.getElementById('formDemande')
           const fileInput = form.querySelector('input[type="file"]')
           fileInput.value = ''
-          setValueRaison("")
+          setValueRaison('')
           setAutre(false)
-          setMessage('Enregistrement effectuer : ' + response.data.idDemande)
+          setMessage('Done : ' + response.data.idDemande)
           setInitial()
           setValue('')
-
         }
         if (response.status === 201) {
           setMessage(response.data)
@@ -115,19 +116,29 @@ function Demande({ title }) {
   }
 
   const returnValue = (champs) => {
-    if (initial && initial['' + champs]) {
+    if (initial && initial['' + champs] && initial['' + champs] !== "undefined" ) {
       return initial['' + champs]
     } else {
       return ''
     }
   }
 
+  useEffect(() => {
+    setInitial({ ...demande })
+    if (raisonRedux.filter((x) => x.raison === demande.raison).length > 0) {
+      setValueRaison(raisonRedux.filter((x) => x.raison === demande.raison)[0])
+    }
+    setLocation({
+      latitude: demande.coordonnes.latitude,
+      longitude: demande.coordonnes.longitude,
+      altitude: demande.coordonnes.altitude,
+    })
+    // donnerStat.filter(x=>x.value === demande.statut)
+    setValue(demande.statut)
+  }, [demande])
+
   return (
     <>
-      <div className="titre">
-        <img src="/bboxx.png" alt="bboxxPages" />
-        <p> {title}</p>
-      </div>
       <form id="formDemande">
         {message && (
           <DirectionSnackbar message={message} open={open} setOpen={setOpen} />
@@ -192,7 +203,11 @@ function Demande({ title }) {
             type="file"
             accept=".png, .jpg, .jpeg"
           />
-         {file &&  <img src={file} alt="fichiers"/>}
+          {file && <img src={file} alt="fichiers" />}
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          
+          {demande && <img width={100} height={100} src={`${lien_image}/${demande.file}`} alt="fichiers" />}
         </div>
         <div style={{ marginBottom: '10px' }}>
           <Selected
@@ -213,7 +228,7 @@ function Demande({ title }) {
           )}
           {showAutre && (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{width:"80%"}}>
+              <div style={{ width: '80%' }}>
                 <Input
                   value={returnValue('raison')}
                   placeholder="Feedback || Raison de non payement *"
@@ -221,10 +236,13 @@ function Demande({ title }) {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              <div onClick={()=>{
-                setValueRaison("")
-                setAutre(false)
-              }} style={{width:"10%", marginLeft:"10px", color:"red"}}>
+              <div
+                onClick={() => {
+                  setValueRaison('')
+                  setAutre(false)
+                }}
+                style={{ width: '10%', marginLeft: '10px', color: 'red' }}
+              >
                 <Clear />
               </div>
             </div>
@@ -297,4 +315,4 @@ function Demande({ title }) {
   )
 }
 
-export default Demande
+export default UpdateDemande

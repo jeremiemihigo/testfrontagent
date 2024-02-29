@@ -63,12 +63,7 @@ export default function BasicTabs() {
     navigation('/')
   }
 
-  React.useEffect(() => {
-    if (!localStorage.getItem('auth')) {
-      navigation('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  
 
   return (
     <Box sx={{ width: '100%' }}>
