@@ -71,7 +71,7 @@
     text-align: justify;
     padding: 3px;
     font-weight: 700;
-    background-color: #dedede;
+    background-color: rgb(146, 163, 153);
 }
 .heure{
     text-align: right;
@@ -80,4 +80,7 @@
 .messagesToutes{
     background-color: #dedede;
     margin-bottom: 10px;
+}
+.listeAll{
+    height: 100vh;
 }

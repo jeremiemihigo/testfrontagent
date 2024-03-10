@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Input } from 'antd'
 import React from 'react'
-import Selected from './Control/Select'
 import { Button, Grid } from '@mui/material'
 import axios from 'axios'
 import { lien } from './Static'
@@ -9,6 +8,7 @@ import DirectionSnackbar from './Control/SnackBar'
 import { Language, Send, Clear } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import AutoComplement from './Control/AutoComplete'
+import { Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, Box } from '@mui/material'
 
 function Demande({ title }) {
   const [initial, setInitial] = React.useState()
@@ -33,10 +33,7 @@ function Demande({ title }) {
     const { value, name } = e.target
     setInitial({ ...initial, [name]: value })
   }
-  const donnerStat = [
-    { id: 1, value: 'allumer', title: 'Allumé' },
-    { id: 2, value: 'eteint', title: 'eteint' },
-  ]
+ 
   const [location, setLocation] = React.useState(null)
 
   function success(position) {
@@ -195,12 +192,28 @@ function Demande({ title }) {
          {file &&  <img src={file} alt="fichiers"/>}
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <Selected
-            label="Statut du client"
-            data={donnerStat}
-            value={value}
-            setValue={setValue}
-          />
+        <Box sx={{ display: 'flex' }}>
+        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+          <FormGroup>
+            <FormControlLabel
+               onClick={() => setValue('allumer')}
+              control={<Checkbox checked={value === 'allumer'} name="allumer" />}
+              label="Allumé"
+            />
+          </FormGroup>
+        </FormControl>
+        <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
+          <FormLabel component="legend"></FormLabel>
+          <FormGroup>
+            <FormControlLabel
+               onClick={() => setValue('eteint')}
+              control={<Checkbox checked={value === 'eteint'} name="eteint" />}
+              label="Eteint"
+            />
+          </FormGroup>
+        </FormControl>
+      </Box>
+          
         </div>
         <div style={{ marginBottom: '10px' }}>
           {!showAutre && (

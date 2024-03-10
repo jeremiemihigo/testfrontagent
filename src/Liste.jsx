@@ -1,16 +1,27 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
 import { lien, lien_image, config } from './Static'
-import React from 'react'
+import React, { useState } from 'react'
 import './demandeListe.css'
-import { Typography, CircularProgress, Box } from '@mui/material'
+import { Typography,Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, CircularProgress, Box } from '@mui/material'
 import Popup from './Control/Popup'
 import FormReclamation from './FormReclamation'
 import { Edit, Message } from '@mui/icons-material'
 import UpdateDemande from './UpdateDemande'
 import moment from "moment"
+import { message } from 'antd';
+
 
 function Liste({ lot }) {
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = (texte) => {
+    navigator.clipboard.writeText(texte)
+    messageApi.open({
+      type: 'success',
+      content: 'Done '+texte,
+      duration: 2,
+    });
+  };
   const [data, setData] = React.useState()
   const [open, setOpen] = React.useState(false)
   const [openDemande, setOpenDemande] = React.useState(false)
@@ -45,16 +56,61 @@ function Liste({ lot }) {
     setDemandeToUpdate(index)
     setOpenDemande(true)
   }
+  const [check, seCheck] = useState("")
+
+  const handleChange =(donner)=>{
+   try {
+    if(check !==""){
+      if(check === "valide"){
+        return donner.filter(x=> x.reponse.length > 0)
+      }
+      if(check === "attente"){
+        return donner.filter(x=> x.reponse.length === 0)
+      }
+    }else{
+      return donner
+    }
+   } catch (error) {
+    return []
+   }
+  }
+
+ 
 
   return (
-    <div>
+    <div className='listeAll'>
+       <>
+      {contextHolder}
+     
+    </>
       {load && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress size={18} />
         </Box>
       )}
+      <Box sx={{ display: 'flex' }}>
+        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+          <FormGroup>
+            <FormControlLabel
+               onClick={() => seCheck('valide')}
+              control={<Checkbox checked={check === 'valide'} name="codeclient" />}
+              label="Valide"
+            />
+          </FormGroup>
+        </FormControl>
+        <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
+          <FormLabel component="legend"></FormLabel>
+          <FormGroup>
+            <FormControlLabel
+               onClick={() => seCheck('attente')}
+              control={<Checkbox checked={check === 'attente'} name="codevisite" />}
+              label="Attente..."
+            />
+          </FormGroup>
+        </FormControl>
+      </Box>
       {data &&
-        data.map((index) => {
+        handleChange(data).map((index) => {
           return (
             <div key={index._id} className='messagesToutes'>
              
@@ -62,7 +118,7 @@ function Liste({ lot }) {
              
                 <img src={`${lien_image}/${index.file}`} alt={index._id} />
                 <Typography component="p" sx={{ fontSize: '13px' }} >
-                <p>ID : {index.idDemande}<span style={{float:"right", fontSize:"10px"}}>{moment(index.createdAt).fromNow()}</span></p>
+                <p >ID : {index.idDemande}<span onClick={()=>success(index.idDemande)} style={{marginLeft:"10px",color:"blue", fontWeight:"bolder", cursor:"pointer", textAlign:"center"}}>copy ID</span><span style={{float:"right", fontSize:"10px"}}>{moment(index.createdAt).fromNow()}</span></p>
                   {index.codeclient !== undefined && index.codeclient};
                   {index?.sat} {index?.reference}
                   {index?.statut}; {index?.raison.toLowerCase()},{' '}
