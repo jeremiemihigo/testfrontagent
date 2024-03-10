@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
-import { dateFrancais, lien, lien_image, config } from './Static'
+import { lien, lien_image, config } from './Static'
 import React from 'react'
 import './demandeListe.css'
 import { Typography, CircularProgress, Box } from '@mui/material'
@@ -8,6 +8,7 @@ import Popup from './Control/Popup'
 import FormReclamation from './FormReclamation'
 import { Edit, Message } from '@mui/icons-material'
 import UpdateDemande from './UpdateDemande'
+import moment from "moment"
 
 function Liste({ lot }) {
   const [data, setData] = React.useState()
@@ -55,15 +56,18 @@ function Liste({ lot }) {
       {data &&
         data.map((index) => {
           return (
-            <div key={index._id}>
+            <div key={index._id} className='messagesToutes'>
+             
               <div className="listeImage">
+             
                 <img src={`${lien_image}/${index.file}`} alt={index._id} />
-                <Typography component="p" sx={{ fontSize: '13px' }}>
-                  {index?.codeclient};{index?.commune}; {index?.sector}{' '}
+                <Typography component="p" sx={{ fontSize: '13px' }} >
+                <p>ID : {index.idDemande}<span style={{float:"right", fontSize:"10px"}}>{moment(index.createdAt).fromNow()}</span></p>
+                  {index.codeclient !== undefined && index.codeclient};
                   {index?.sat} {index?.reference}
-                  {index?.statut}; {index?.raison},{' '}
+                  {index?.statut}; {index?.raison.toLowerCase()},{' '}
                   {index.numero && index.numero};
-                  <span>{dateFrancais(index?.createdAt)}</span>
+                  
                 </Typography>
               </div>
               <div className="itemButtons">
@@ -78,23 +82,32 @@ function Liste({ lot }) {
                 </div>
               </div>
               <div>
+                  {index.conversation.length > 0 && index.conversation.map(item=>{
+                    return(
+                      <div key={item._id} className={item.sender ==="agent" ? "agent":"callcenter"}>
+                        <p className='messageText'>{item.message}</p>
+                        <p className='heure'>{moment(item.createdAt).fromNow()}</p>
+                      </div>
+                    )
+                  })
+                 
+                  }
+                </div>
+              <div>
                 {index.reponse.length > 0 &&
                   index.reponse.map((item) => {
                     return (
                       <div
                         key={item._id}
                         className="reponseListe"
-                        onClick={(e) => openPopup(item._id, e)}
                       >
                         <p>{item.codeclient}</p>
-                        <p>{item.nomClient}</p>
-                        <p>Statut du client ;{item.clientStatut}</p>
-                        <p>Statut payement ;{item.PayementStatut}</p>
-
-                        <p>consExpDays</p>
+                        <p style={{fontWeight:"bold"}}>{item.nomClient.toUpperCase()}</p>
+                        <p>Statut du client : <span style={{fontWeight:"bolder"}}>{item.clientStatut}</span> </p>
+                        <p>Statut payement : <span style={{fontWeight:"bolder"}}>{item.PayementStatut}</span></p>
                         <p>
-                          {item.consExpDays}{' '}
-                          {`${item.consExpDays === 1 ? 'Jour' : 'Jours'}`}
+                        consExpDays : <span style={{fontWeight:"bolder"}}>{item.consExpDays}{' jour(s) '}</span> 
+                          
                         </p>
                         <p>
                           {item.region}/{item.shop}
