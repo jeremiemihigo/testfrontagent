@@ -195,7 +195,7 @@ function Liste({ lot }) {
       )}
       {demandeToUpdate && (
         <Popup open={openDemande} setOpen={setOpenDemande} title="Message">
-          <UpdateDemande demande={demandeToUpdate} loadingData={loadingListe}/>
+          <UpdateDemande demande={demandeToUpdate} close={setOpenDemande} loadingData={loadingListe}/>
         </Popup>
       )}
     </div>

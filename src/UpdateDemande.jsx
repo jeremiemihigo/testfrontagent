@@ -12,7 +12,7 @@ import AutoComplement from './Control/AutoComplete'
 
 import { Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, Box } from '@mui/material'
 
-function UpdateDemande({ demande, loadingData }) {
+function UpdateDemande({ demande, loadingData, close }) {
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
@@ -93,15 +93,14 @@ function UpdateDemande({ demande, loadingData }) {
 
         if (response.data?._id) {
           setLocation(null)
-          const form = document.getElementById('formDemande')
-          const fileInput = form.querySelector('input[type="file"]')
-          fileInput.value = ''
-          setValueRaison('')
-          setAutre(false)
+          close(false)
+          // const form = document.getElementById('formDemande')
+          // const fileInput = form.querySelector('input[type="file"]')
+          // fileInput.value = ''
+         
           loadingData()
           setMessage('Done : ' + response.data.idDemande)
-          setInitial()
-          setValue('')
+         
         }
         if (response.status === 201) {
           setMessage(response.data)
@@ -231,10 +230,6 @@ function UpdateDemande({ demande, loadingData }) {
           </FormGroup>
         </FormControl>
       </Box>
-
-
-
-         
         </div>
         <div style={{ marginBottom: '10px' }}>
           {!showAutre && (
