@@ -4,8 +4,10 @@ import { Input } from 'antd'
 import { Button } from '@mui/material'
 import axios from 'axios'
 import { lien } from './Static'
+import { CreateContexte } from './Context'
 
-function Profil({title}) {
+function Profil() {
+  const { title } = React.useContext(CreateContexte)
 
   const [initial, setInitial] = React.useState()
   const [sendIng, setSendIng] = React.useState(false)

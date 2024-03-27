@@ -7,8 +7,10 @@ import { Typography, CircularProgress, Grid } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import Popup from './Control/Popup'
 import FormReclamation from './FormReclamation'
+import { CreateContexte } from './Context'
 
-function Chat({ title }) {
+function Chat() {
+  const { title } = React.useContext(CreateContexte)
   const [data, setData] = React.useState()
   const [idDelete, setIdDelete] = React.useState('')
   const loading = async () => {
@@ -50,7 +52,7 @@ function Chat({ title }) {
         <img src="/bboxx.png" alt="bboxxPages" />
         <p> {title}</p>
       </div>
-      <div>
+      <div className='liste'>
         {data &&
           data.length > 0 &&
           data.map((index) => {

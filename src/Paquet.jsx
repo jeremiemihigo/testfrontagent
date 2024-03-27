@@ -2,86 +2,87 @@
 import axios from 'axios'
 import { lien, config } from './Static.jsx'
 import React from 'react'
-import { CircularProgress, Box, Typography } from '@mui/material'
+import { CircularProgress, Box } from '@mui/material'
 import Liste from './Liste.jsx'
+import './style.css'
+import { CreateContexte } from './Context.jsx'
 
-function Paquet({title}) {
+function Paquet() {
   const [data, setData] = React.useState()
   const [load, setLoad] = React.useState(false)
   const [lotSelect, setLotSelect] = React.useState()
+
+  const { title, handleChangeTitle } = React.useContext(CreateContexte)
   const loading = async () => {
-   
     setLoad(true)
     try {
       const response = await axios.get(
-        `${lien}/paquet/${localStorage.getItem("codeAgent")}`, config
+        `${lien}/paquet`,
+        config,
       )
-      setData(response.data)
-      setLoad(false)
+      if(response.status === 201){
+        window.location.replace("/")
+      }else{
+        setData(response.data)
+        setLoad(false)
+      }
+     
     } catch (error) {
       console.log(error)
     }
-   
   }
   React.useEffect(() => {
     loading()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  const choisirLot = (paquet, critere) => {
+    handleChangeTitle('Demandes ' + critere)
+    setLotSelect({ donner: paquet, critere })
+  }
   return (
     <div>
-     <div className='titre'>
-      <img src='/bboxx.png' alt='bboxxPages' />
-      <p> {title}</p>
-     </div>
-      {load &&
-       <Box sx={{ display: 'flex', justifyContent:"center" }}>
-       <CircularProgress size={18}/>
-     </Box>
-      }
-      {data && !lotSelect &&
-        data.map((index) => {
-          return (
-            <div onClick={()=>setLotSelect(index._id)} key={index._id} style={style.containerPaquet}>
-              <div style={style.lot}>{index._id}</div>
-              <div style={style.reponse}>
-                <Typography>Reponse(s)</Typography>
-                <Typography>{index.reponse}</Typography>
-              </div>
-              <div style={style.demande}>
-                <Typography>demandes(s)</Typography>
-                <Typography>{index.demande}</Typography>
-              </div>
-            </div>
-          )
-        })}
-        {lotSelect && <Liste lot={lotSelect} />}
+      <div className="titre">
+        <img src="/bboxx.png" alt="bboxxPages" />
+        <p> {title}</p>
+      </div>
+      {load && (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <CircularProgress size={18} />
+        </Box>
+      )}
+      <div className="liste">
+        {data &&
+          !lotSelect &&
+          data.map((index) => {
+            return (
+              index._id !== null && (
+                <div key={index._id} className="lot">
+                  <div className="titleLot"> mois {index._id}</div>
+                  <div className="contentLot">
+                    <div onClick={() => choisirLot(index.valide, 'valide')}>
+                      <p className="contentTitle">Valides</p>
+                      <p className="contentData">{index.valide.length}</p>
+                    </div>
+                    <div onClick={() => choisirLot(index.attente, 'attentes')}>
+                      <p className="contentTitle">En attentes</p>
+                      <p className="contentData">{index.attente.length}</p>
+                    </div>
+                    <div
+                      onClick={() => choisirLot(index.nConforme, 'nConformes')}
+                    >
+                      <p className="contentTitle">Non conformes</p>
+                      <p className="contentData">{index.nConforme.length}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )
+          })}
+      </div>
+
+      {lotSelect && <Liste lot={lotSelect} />}
     </div>
   )
-}
-
-const style = {
-  containerPaquet: {
-    display: 'flex',
-    backgroundColor: '#dedede',
-    marginTop: '10px',
-    width: '100%',
-    borderRadius: '10px',
-    padding: '10px',
-  },
-  lot : {
-    width:"35%"
-  },
-  demande : {
-    width:"25%",
-    textAlign:"center",
-    paddingLeft:"5%"
-  },
-  reponse : {
-    width:"25%",
-    textAlign:"center",
-   
-  },
 }
 
 export default Paquet

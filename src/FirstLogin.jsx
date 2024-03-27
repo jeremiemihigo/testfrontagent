@@ -19,6 +19,7 @@ import Slide from '@mui/material/Slide'
 import { Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 // project import
 
 // assets
@@ -87,6 +88,7 @@ const NouvelleInscription = () => {
                 <Grid container spacing={1}>
                   <Grid item xs={12} lg={6}>
                     <Stack spacing={1}>
+                      
                       <OutlinedInput
                         id="password"
                         type="text"

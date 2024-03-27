@@ -4,9 +4,6 @@ import { lien } from './Static'
 import { Input } from 'antd'
 import { Typography, Button, Paper, CircularProgress } from '@mui/material'
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { ReadUser } from './Redux/user';
 
 
 function Login() {
@@ -14,7 +11,6 @@ function Login() {
     username: '',
     password: '',
   })
-  const navigation = useNavigate()
   const [sending, setSending] = React.useState(false)
   const [message, setMessage] = React.useState('')
   const handleChange = (e) => {
@@ -24,7 +20,6 @@ function Login() {
       [name]: value,
     })
   }
-  const dispatch = useDispatch()
   const onsubmit = async (e) => {
     e.preventDefault()
     setSending(true)
@@ -37,8 +32,8 @@ function Login() {
         localStorage.setItem('codeAgent', response.data.codeAgent)
         localStorage.setItem('codeZone', response.data.codeZone)
         localStorage.setItem('nom', response.data.nom)
-        dispatch(ReadUser())
-        navigation("/operation")
+        localStorage.setItem('shop', response.data.shop)
+        window.location.replace("/operation")
         setSending(false)
       } else {
         setMessage('Incorrect')

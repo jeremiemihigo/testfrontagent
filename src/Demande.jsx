@@ -8,9 +8,18 @@ import DirectionSnackbar from './Control/SnackBar'
 import { Language, Send, Clear } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import AutoComplement from './Control/AutoComplete'
-import { Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, Box } from '@mui/material'
+import {
+  Checkbox,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  FormGroup,
+  Box,
+} from '@mui/material'
+import { CreateContexte } from './Context'
 
-function Demande({ title }) {
+function Demande() {
+  const { title } = React.useContext(CreateContexte)
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
@@ -33,7 +42,7 @@ function Demande({ title }) {
     const { value, name } = e.target
     setInitial({ ...initial, [name]: value })
   }
- 
+
   const [location, setLocation] = React.useState(null)
 
   function success(position) {
@@ -74,11 +83,12 @@ function Demande({ title }) {
         datas.append('longitude', location?.longitude)
         datas.append('latitude', location?.latitude)
         datas.append('altitude', location?.altitude)
-        datas.append('codeAgent', localStorage.getItem("codeAgent"))
-        datas.append('codeZone', localStorage.getItem("codeZone"))
+        datas.append('codeAgent', localStorage.getItem('codeAgent'))
+        datas.append('codeZone', localStorage.getItem('codeZone'))
+        datas.append('idShop', localStorage.getItem('shop'))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
-        datas.append('raison',  raison)
+        datas.append('raison', raison)
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
@@ -87,18 +97,17 @@ function Demande({ title }) {
         datas.append('commune', initial?.commune)
 
         const response = await axios.post(lien + '/demande', datas)
-    
+
         if (response.data?._id) {
           setLocation(null)
           const form = document.getElementById('formDemande')
           const fileInput = form.querySelector('input[type="file"]')
           fileInput.value = ''
-          setValueRaison("")
+          setValueRaison('')
           setAutre(false)
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
           setInitial()
           setValue('')
-
         }
         if (response.status === 201) {
           setMessage(response.data)
@@ -189,31 +198,34 @@ function Demande({ title }) {
             type="file"
             accept=".png, .jpg, .jpeg"
           />
-         {file &&  <img src={file} alt="fichiers"/>}
+          {file && <img src={file} alt="fichiers" />}
         </div>
         <div style={{ marginBottom: '10px' }}>
-        <Box sx={{ display: 'flex' }}>
-        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-          <FormGroup>
-            <FormControlLabel
-               onClick={() => setValue('allumer')}
-              control={<Checkbox checked={value === 'allumer'} name="allumer" />}
-              label="Allumé"
-            />
-          </FormGroup>
-        </FormControl>
-        <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
-          <FormLabel component="legend"></FormLabel>
-          <FormGroup>
-            <FormControlLabel
-               onClick={() => setValue('eteint')}
-              control={<Checkbox checked={value === 'eteint'} name="eteint" />}
-              label="Eteint"
-            />
-          </FormGroup>
-        </FormControl>
-      </Box>
-          
+          <Box sx={{ display: 'flex' }}>
+            <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+              <FormGroup>
+                <FormControlLabel
+                  onClick={() => setValue('allumer')}
+                  control={
+                    <Checkbox checked={value === 'allumer'} name="allumer" />
+                  }
+                  label="Allumé"
+                />
+              </FormGroup>
+            </FormControl>
+            <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  onClick={() => setValue('eteint')}
+                  control={
+                    <Checkbox checked={value === 'eteint'} name="eteint" />
+                  }
+                  label="Eteint"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
         </div>
         <div style={{ marginBottom: '10px' }}>
           {!showAutre && (
@@ -226,7 +238,7 @@ function Demande({ title }) {
           )}
           {showAutre && (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{width:"80%"}}>
+              <div style={{ width: '80%' }}>
                 <Input
                   value={returnValue('raison')}
                   placeholder="Feedback || Raison de non payement *"
@@ -234,10 +246,13 @@ function Demande({ title }) {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              <div onClick={()=>{
-                setValueRaison("")
-                setAutre(false)
-              }} style={{width:"10%", marginLeft:"10px", color:"red"}}>
+              <div
+                onClick={() => {
+                  setValueRaison('')
+                  setAutre(false)
+                }}
+                style={{ width: '10%', marginLeft: '10px', color: 'red' }}
+              >
                 <Clear />
               </div>
             </div>
