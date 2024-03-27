@@ -121,7 +121,7 @@ export default function BasicTabs() {
           {userConnect?.shop?.shop}
         </Typography>
         <Typography sx={{ textAlign: 'center', fontSize: '12px' }}>
-          contact enregistré : {userConnect?.telephone}
+          contact : {userConnect?.telephone}
         </Typography>
       </Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
