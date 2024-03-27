@@ -19,29 +19,7 @@ function Liste({ lot }) {
         )}
         {critere === 'attentes' && <Attente donner={donner} />}
         {critere === 'nConformes' && <NonConforme donner={donner} />}
-
-        {/* {donner &&
-          filterFn.fn(donner).map((index) => {
-            return (
-              <div key={index._id} className="messagesToutes">
-                {critere === 'valide' && (
-                  <Valide
-                    index={index}
-                    setValidate={setValidate}
-                    validates={validates}
-                  />
-                )}
-                
-              </div>
-            )
-          })} */}
       </div>
-
-      {/* {_id && (
-        <Popup open={open} setOpen={setOpen} title="Message">
-          <FormReclamation id={_id} />
-        </Popup>
-      )} */}
     </div>
   )
 }

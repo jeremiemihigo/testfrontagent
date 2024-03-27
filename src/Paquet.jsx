@@ -56,8 +56,8 @@ function Paquet() {
           data.map((index) => {
             return (
               index._id !== null && (
-                <div key={index._id} className="lot">
-                  <div className="titleLot"> mois {index._id}</div>
+                <div key={index._id} className={index.active ? "lot lotActive":"lot"}>
+                  <div className="titleLot">{index._id}</div>
                   <div className="contentLot">
                     <div onClick={() => choisirLot(index.valide, 'valide', 'Validées')}>
                       <p className="contentTitle">Valides</p>
