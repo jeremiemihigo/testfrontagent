@@ -35,8 +35,8 @@ function Paquet() {
     loading()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const choisirLot = (paquet, critere) => {
-    handleChangeTitle('Demandes ' + critere)
+  const choisirLot = (paquet, critere, texte) => {
+    handleChangeTitle(texte)
     setLotSelect({ donner: paquet, critere })
   }
   return (
@@ -59,16 +59,16 @@ function Paquet() {
                 <div key={index._id} className="lot">
                   <div className="titleLot"> mois {index._id}</div>
                   <div className="contentLot">
-                    <div onClick={() => choisirLot(index.valide, 'valide')}>
+                    <div onClick={() => choisirLot(index.valide, 'valide', 'Validées')}>
                       <p className="contentTitle">Valides</p>
                       <p className="contentData">{index.valide.length}</p>
                     </div>
-                    <div onClick={() => choisirLot(index.attente, 'attentes')}>
+                    <div onClick={() => choisirLot(index.attente, 'attentes', "En attente")}>
                       <p className="contentTitle">En attentes</p>
                       <p className="contentData">{index.attente.length}</p>
                     </div>
                     <div
-                      onClick={() => choisirLot(index.nConforme, 'nConformes')}
+                      onClick={() => choisirLot(index.nConforme, 'nConformes', "Non conformes")}
                     >
                       <p className="contentTitle">Non conformes</p>
                       <p className="contentData">{index.nConforme.length}</p>

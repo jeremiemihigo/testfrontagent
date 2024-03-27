@@ -53,7 +53,7 @@ function Liste({ donner }) {
       <div style={{marginBottom:"10px"}}>
       <Input
         onChange={(e) => handleChange(e)}
-        placeholder="Rechercher un code client"
+        placeholder="Recherchez un code client"
       />
       </div>
       <div className='listeReponses'>
