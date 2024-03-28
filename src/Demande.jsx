@@ -30,7 +30,7 @@ function Demande() {
   const [valueRaison, setValueRaison] = React.useState('')
   const [showAutre, setAutre] = React.useState(false)
   React.useEffect(() => {
-    if (valueRaison !== '' && valueRaison.raison === 'Autres') {
+    if (valueRaison !== '' && valueRaison?.raison === 'Autres') {
       setAutre(true)
     }
   }, [valueRaison])
