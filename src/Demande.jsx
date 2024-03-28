@@ -110,10 +110,13 @@ function Demande() {
           setValue('')
         }
         if (response.status === 201) {
-          setMessage(response.data)
+          setMessage(`${response.data} << connectez-vous de nouveau >>`)
+          setTimeout(() => {
+            localStorage.removeItem('auth')
+            window.location.replace('/')
+          }, 2000)
         }
       }
-
       setLoadings(false)
     } catch (error) {
       console.log(error)
