@@ -71,6 +71,7 @@ const NouvelleInscription = () => {
           <div style={{marginBottom:"10px"}}>
             <Input
               placeholder="Mot de passe"
+              type='password'
               onChange={(e) =>
                 setPassword({
                   ...password,
@@ -81,6 +82,7 @@ const NouvelleInscription = () => {
           </div>
           <div style={{marginBottom:"10px"}}>
             <Input
+            type='password'
               placeholder="Repeter le mot de passe"
               onChange={(e) =>
                 setPassword({
