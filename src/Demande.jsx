@@ -96,6 +96,10 @@ function Demande() {
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
 
+        localStorage.setItem("sector", initial?.sector)
+        localStorage.setItem("cell", initial?.cell)
+        localStorage.setItem("commune", initial?.commune)
+
         const response = await axios.post(lien + '/demande', datas)
 
         if (response.data?._id) {
@@ -125,7 +129,7 @@ function Demande() {
 
   const returnValue = (champs) => {
     if (initial && initial['' + champs]) {
-      return initial['' + champs]
+      return localStorage.getItem(''+champs) || initial['' + champs]
     } else {
       return ''
     }
