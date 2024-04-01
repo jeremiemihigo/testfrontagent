@@ -78,7 +78,7 @@ export default function BasicTabs() {
     localStorage.removeItem('codeAgent')
     localStorage.removeItem('codeZone')
     localStorage.removeItem('shop')
-    navigation('/')
+    navigation('/', {replace:true})
   }
 
   return (

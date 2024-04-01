@@ -4,6 +4,7 @@ import { lien } from './Static'
 import { Input } from 'antd'
 import { Typography, Button, Paper, CircularProgress } from '@mui/material'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 
 function Login() {
@@ -11,6 +12,7 @@ function Login() {
     username: '',
     password: '',
   })
+  const navigation = useNavigate()
   const [sending, setSending] = React.useState(false)
   const [message, setMessage] = React.useState('')
   const handleChange = (e) => {
@@ -20,6 +22,12 @@ function Login() {
       [name]: value,
     })
   }
+  React.useEffect(()=>{
+    if(localStorage.getItem('auth')){
+      navigation("/operation", {replace : true})
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const onsubmit = async (e) => {
     e.preventDefault()
     setSending(true)

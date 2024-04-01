@@ -6,11 +6,13 @@ import { CircularProgress, Box } from '@mui/material'
 import Liste from './Liste.jsx'
 import './style.css'
 import { CreateContexte } from './Context.jsx'
+import { useNavigate } from 'react-router-dom'
 
 function Paquet() {
   const [data, setData] = React.useState()
   const [load, setLoad] = React.useState(false)
   const [lotSelect, setLotSelect] = React.useState()
+  const navigation = useNavigate()
 
   const { title, handleChangeTitle } = React.useContext(CreateContexte)
   const loading = async () => {
@@ -21,7 +23,12 @@ function Paquet() {
         config,
       )
       if(response.status === 201){
-        window.location.replace("/")
+        localStorage.removeItem('auth')
+        localStorage.removeItem('codeAgent')
+        localStorage.removeItem('codeZone')
+        localStorage.removeItem('nom')
+        localStorage.removeItem('shop')
+        navigation("/", {replace:true})
       }else{
         setData(response.data)
         setLoad(false)
