@@ -18,22 +18,22 @@ function Paquet() {
   const loading = async () => {
     setLoad(true)
     try {
-      const response = await axios.get(
-        `${lien}/paquet`,
-        config,
-      )
-      if(response.status === 201){
+      const response = await axios.get(`${lien}/paquet`, config)
+      localStorage.removeItem('commune')
+      localStorage.removeItem('cell')
+      localStorage.removeItem('quartier')
+
+      if (response.status === 201) {
         localStorage.removeItem('auth')
         localStorage.removeItem('codeAgent')
         localStorage.removeItem('codeZone')
         localStorage.removeItem('nom')
         localStorage.removeItem('shop')
-        navigation("/", {replace:true})
-      }else{
+        navigation('/', { replace: true })
+      } else {
         setData(response.data)
         setLoad(false)
       }
-     
     } catch (error) {
       console.log(error)
     }
@@ -63,19 +63,36 @@ function Paquet() {
           data.map((index) => {
             return (
               index._id !== null && (
-                <div key={index._id} className={index.active ? "lot lotActive":"lot"}>
+                <div
+                  key={index._id}
+                  className={index.active ? 'lot lotActive' : 'lot'}
+                >
                   <div className="titleLot">{index._id}</div>
                   <div className="contentLot">
-                    <div onClick={() => choisirLot(index.valide, 'valide', 'Validées')}>
+                    <div
+                      onClick={() =>
+                        choisirLot(index.valide, 'valide', 'Validées')
+                      }
+                    >
                       <p className="contentTitle">Valides</p>
                       <p className="contentData">{index.valide.length}</p>
                     </div>
-                    <div onClick={() => choisirLot(index.attente, 'attentes', "En attente")}>
+                    <div
+                      onClick={() =>
+                        choisirLot(index.attente, 'attentes', 'En attente')
+                      }
+                    >
                       <p className="contentTitle">En attentes</p>
                       <p className="contentData">{index.attente.length}</p>
                     </div>
                     <div
-                      onClick={() => choisirLot(index.nConforme, 'nConformes', "Non conformes")}
+                      onClick={() =>
+                        choisirLot(
+                          index.nConforme,
+                          'nConformes',
+                          'Non conformes',
+                        )
+                      }
                     >
                       <p className="contentTitle">Non conformes</p>
                       <p className="contentData">{index.nConforme.length}</p>

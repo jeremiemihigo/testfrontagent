@@ -96,12 +96,10 @@ function Demande() {
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
 
-        localStorage.setItem("sector", initial?.sector)
-        localStorage.setItem("cell", initial?.cell)
-        localStorage.setItem("commune", initial?.commune)
+        
+
 
         const response = await axios.post(lien + '/demande', datas)
-
         if (response.data?._id) {
           setLocation(null)
           const form = document.getElementById('formDemande')
@@ -109,9 +107,11 @@ function Demande() {
           fileInput.value = ''
           setValueRaison('')
           setAutre(false)
-          setMessage('Enregistrement effectuer : ' + response.data.idDemande)
           setInitial()
           setValue('')
+          setMessage('Enregistrement effectuer : ' + response.data.idDemande)
+          
+         
         }
         if (response.status === 201) {
           setMessage(`${response.data} << connectez-vous de nouveau >>`)
@@ -129,7 +129,7 @@ function Demande() {
 
   const returnValue = (champs) => {
     if (initial && initial['' + champs]) {
-      return localStorage.getItem(''+champs) || initial['' + champs]
+      return initial['' + champs]
     } else {
       return ''
     }
