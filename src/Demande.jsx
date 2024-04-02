@@ -95,10 +95,6 @@ function Demande() {
         datas.append('sat', initial?.sat)
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
-
-        
-
-
         const response = await axios.post(lien + '/demande', datas)
         if (response.data?._id) {
           setLocation(null)
@@ -110,20 +106,15 @@ function Demande() {
           setInitial()
           setValue('')
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
-          
-         
         }
         if (response.status === 201) {
           setMessage(`${response.data} << connectez-vous de nouveau >>`)
-          setTimeout(() => {
-            localStorage.removeItem('auth')
-            window.location.replace('/')
-          }, 2000)
+          localStorage.removeItem('auth')
         }
       }
       setLoadings(false)
     } catch (error) {
-      console.log(error)
+      setMessage("Erreur")
     }
   }
 

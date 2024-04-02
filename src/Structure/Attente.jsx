@@ -4,8 +4,7 @@ import React from 'react'
 import '../demandeListe.css'
 import { Typography } from '@mui/material'
 import Popup from '../Control/Popup'
-import FormReclamation from '../FormReclamation'
-import { Edit, Message } from '@mui/icons-material'
+import { Edit } from '@mui/icons-material'
 import UpdateDemande from '../UpdateDemande'
 import moment from 'moment'
 import { message } from 'antd'
@@ -20,16 +19,10 @@ function Attente({ donner }) {
       duration: 2,
     })
   }
-  const [open, setOpen] = React.useState(false)
   const [openDemande, setOpenDemande] = React.useState(false)
   const [demandeToUpdate, setDemandeToUpdate] = React.useState()
-  const [_id, setId] = React.useState()
 
-  const openPopup = (index, e) => {
-    e.preventDefault()
-    setId(index)
-    setOpen(true)
-  }
+
 
   const updateDemande = (index) => {
     setDemandeToUpdate(index)
@@ -75,19 +68,10 @@ function Attente({ donner }) {
                   <Edit fontSize="small" /> <span>Modifier</span>
                 </div>
               )}
-              <div onClick={(e) => openPopup(index._id, e)}>
-                <Message fontSize="small" /> <span>Feedback</span>
-              </div>
             </div>
           </div>
         )
       })}
-
-      {_id && (
-        <Popup open={open} setOpen={setOpen} title="Message">
-          <FormReclamation id={_id} />
-        </Popup>
-      )}
       {demandeToUpdate && (
         <Popup open={openDemande} setOpen={setOpenDemande} title="Message">
           <UpdateDemande demande={demandeToUpdate} close={setOpenDemande} />
