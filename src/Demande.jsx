@@ -117,9 +117,6 @@ function Demande() {
       if (error.code === 'ERR_NETWORK') {
         setLoadings(false)
         setMessage('Rassurez-vous que votre appareil a une connexion active')
-      } else {
-        setLoadings(false)
-        setMessage('Erreur')
       }
     }
   }
