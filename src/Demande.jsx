@@ -5,9 +5,7 @@ import { Button, Grid } from '@mui/material'
 import axios from 'axios'
 import { lien } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
-import { Language, Send, Clear } from '@mui/icons-material'
-import { useSelector } from 'react-redux'
-import AutoComplement from './Control/AutoComplete'
+import { Language, Send } from '@mui/icons-material'
 import {
   Checkbox,
   FormControl,
@@ -17,6 +15,7 @@ import {
   Box,
 } from '@mui/material'
 import { CreateContexte } from './Context'
+import TextArea from './Control/TextArea'
 
 function Demande() {
   const { title } = React.useContext(CreateContexte)
@@ -26,14 +25,7 @@ function Demande() {
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
-  const raisonRedux = useSelector((state) => state.raison?.raison)
-  const [valueRaison, setValueRaison] = React.useState('')
-  const [showAutre, setAutre] = React.useState(false)
-  React.useEffect(() => {
-    if (valueRaison !== '' && valueRaison?.raison === 'Autres') {
-      setAutre(true)
-    }
-  }, [valueRaison])
+  const [raison, setRaison] = React.useState('')
 
   const [loadings, setLoadings] = React.useState(false)
 
@@ -72,12 +64,11 @@ function Demande() {
         !initial?.reference ||
         !initial?.sat ||
         !initial?.cell ||
-        !initial?.sector
+        raison === ''
       ) {
         setMessage('Veuillez renseigner les champs')
       } else {
         setMessage('')
-        let raison = showAutre ? initial?.raison : valueRaison?.raison
         const datas = new FormData()
         datas.append('file', file)
         datas.append('longitude', location?.longitude)
@@ -101,9 +92,8 @@ function Demande() {
           const form = document.getElementById('formDemande')
           const fileInput = form.querySelector('input[type="file"]')
           fileInput.value = ''
-          setValueRaison('')
-          setAutre(false)
           setInitial()
+          setRaison('')
           setValue('')
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
         }
@@ -199,7 +189,6 @@ function Demande() {
             type="file"
             accept=".png, .jpg, .jpeg"
           />
-          {file && <img src={file} alt="fichiers" />}
         </div>
         <div style={{ marginBottom: '10px' }}>
           <Box sx={{ display: 'flex' }}>
@@ -229,35 +218,11 @@ function Demande() {
           </Box>
         </div>
         <div style={{ marginBottom: '10px' }}>
-          {!showAutre && (
-            <AutoComplement
-              value={valueRaison}
-              setValue={setValueRaison}
-              options={raisonRedux}
-              title="Selectionnez le feedback"
-            />
-          )}
-          {showAutre && (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ width: '80%' }}>
-                <Input
-                  value={returnValue('raison')}
-                  placeholder="Feedback || Raison de non payement *"
-                  name="raison"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-              <div
-                onClick={() => {
-                  setValueRaison('')
-                  setAutre(false)
-                }}
-                style={{ width: '10%', marginLeft: '10px', color: 'red' }}
-              >
-                <Clear />
-              </div>
-            </div>
-          )}
+          <TextArea
+            setValue={setRaison}
+            value={raison}
+            placeholder="Feedback || Raison de non payement *"
+          />
         </div>
         <div style={{ marginTop: '10px' }}>
           <Input
