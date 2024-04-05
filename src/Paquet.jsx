@@ -103,8 +103,10 @@ function Paquet() {
             )
           })}
       </div>
+     
 
       {lotSelect && <Liste lot={lotSelect} />}
+      
     </div>
   )
 }

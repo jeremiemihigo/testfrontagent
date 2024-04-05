@@ -105,7 +105,7 @@ function NonConforme({ donner }) {
       
       {_id && (
         <Popup open={open} setOpen={setOpen} title="Message">
-          <FormReclamation id={_id} />
+          <FormReclamation id={_id} close={setOpen} />
         </Popup>
       )}
       {demandeToUpdate && (

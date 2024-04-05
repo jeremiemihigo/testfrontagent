@@ -108,3 +108,14 @@
   overflow-y: auto;
   overflow-x: auto;
 }
+.actionbtn{
+  background-color: rgb(15, 15, 94);
+  padding: 2px 13px;
+  color: white;
+  border-color:rgb(15, 15, 94); ;
+  font-weight: bolder;
+}
+.contentDemande{
+  display: flex;
+  margin: 2px;
+}

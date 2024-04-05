@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Button } from '@mui/material'
-import TextArea from 'antd/es/input/TextArea'
 import axios from 'axios'
 import React from 'react'
 import { lien } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
+import TextArea from './Control/TextArea'
 
-function FormReclamation({ id, data, setData }) {
+function FormReclamation({ id, data, setData, close }) {
   const [initial, setInitial] = React.useState('')
   const [sending, setSendIng] = React.useState(false)
   const [open, setOpen] = React.useState(true)
@@ -18,18 +18,19 @@ function FormReclamation({ id, data, setData }) {
     try {
       const response = await axios.post(lien + '/reclamation', {
         _id: id,
-        codeAgent : localStorage.getItem("codeAgent"),
+        codeAgent: localStorage.getItem('codeAgent'),
         sender: 'agent',
         message: initial,
       })
-      
+
       if (response.data[0]?.message) {
         setData([...data, response.data[0]])
-        setInitial("")
+        setInitial('')
       }
       if (response.status === 201) {
         setMessage(response.data)
       }
+      close(false)
       setSendIng(false)
     } catch (error) {
       setSendIng(false)
@@ -41,14 +42,9 @@ function FormReclamation({ id, data, setData }) {
       {message && (
         <DirectionSnackbar message={message} open={open} setOpen={setOpen} />
       )}
-      <TextArea
-      value={initial}
-        placeholder="Message"
-        onChange={(e) => {
-          setInitial(e.target.value)
-          setMessage()
-        }}
-      />
+      <div style={{marginTop:"10px"}}>
+      <TextArea value={initial} setValue={setInitial} placeholder="Message" />
+      </div>
       <Button
         disabled={sending}
         onClick={(e) => sendData(e)}
