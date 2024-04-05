@@ -9,6 +9,7 @@ import { message, Input } from 'antd'
 import { Message } from '@mui/icons-material'
 import moment from 'moment'
 import Action from './Action'
+import ImageComponent from '../Control/Image'
 
 function Liste({ donner }) {
   const [validates, setValidate] = React.useState('')
@@ -99,10 +100,8 @@ function Liste({ donner }) {
                 {validates === index.reponse[0].codeclient && (
                   <>
                     <div className="listeImage">
-                      <img
-                        src={`${lien_image}/${index.file}`}
-                        alt={index._id}
-                      />
+                      <ImageComponent src={`${lien_image}/${index.file}`} />
+                      
                       <Typography component="div" sx={{ fontSize: '13px' }}>
                         <p>
                           ID : {index.idDemande}

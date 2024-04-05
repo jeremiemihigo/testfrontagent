@@ -8,6 +8,7 @@ import { Edit } from '@mui/icons-material'
 import UpdateDemande from '../UpdateDemande'
 import moment from 'moment'
 import { message } from 'antd'
+import ImageComponent from '../Control/Image'
 
 function Attente({ donner }) {
   const [messageApi, contextHolder] = message.useMessage()
@@ -36,7 +37,7 @@ function Attente({ donner }) {
         return (
           <div key={index._id} className="messagesToutes">
             <div className="listeImage">
-              <img src={`${lien_image}/${index.file}`} alt={index._id} />
+              <ImageComponent src={`${lien_image}/${index.file}`} />
               <Typography component="p" sx={{ fontSize: '13px' }}>
                 <p>
                   ID : {index.idDemande}
