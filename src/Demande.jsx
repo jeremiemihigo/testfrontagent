@@ -64,9 +64,9 @@ function Demande() {
         !initial?.reference ||
         !initial?.sat ||
         !initial?.cell ||
-        raison === ''
+        raison === '' || !file || value === ""
       ) {
-        setMessage('Veuillez renseigner les champs')
+        setMessage("Veuillez renseigner les champs ayant l'asterisque ainsi que la photo")
       } else {
         setMessage('')
         const datas = new FormData()
@@ -93,6 +93,7 @@ function Demande() {
           const fileInput = form.querySelector('input[type="file"]')
           fileInput.value = ''
           setInitial()
+          setImage()
           setRaison('')
           setValue('')
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
