@@ -49,7 +49,7 @@ function NonConforme({ donner }) {
                   <ImageComponent src={`${lien_image}/${index.file}`} />
                   
                   <Typography component="p" sx={{ fontSize: '13px' }}>
-                    <p>
+                    
                       ID : {index.idDemande}
                       <span
                         onClick={() => success(index.idDemande)}
@@ -66,7 +66,7 @@ function NonConforme({ donner }) {
                       <span style={{ float: 'right', fontSize: '10px' }}>
                         {moment(index.createdAt).fromNow()}
                       </span>
-                    </p>
+                    
                     {index.codeclient !== undefined && index.codeclient};
                     {index?.sat} {index?.reference}
                     {index?.statut}; {index?.raison.toLowerCase()},{' '}

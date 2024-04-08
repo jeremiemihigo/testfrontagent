@@ -49,7 +49,7 @@ function Liste({ donner }) {
       },
     })
   }
-  const [clientSelect, setclientSelect] = React.useState("")
+  const [clientSelect, setclientSelect] = React.useState('')
 
   return (
     <>
@@ -101,23 +101,21 @@ function Liste({ donner }) {
                   <>
                     <div className="listeImage">
                       <ImageComponent src={`${lien_image}/${index.file}`} />
-                      
+
                       <Typography component="div" sx={{ fontSize: '13px' }}>
-                        <p>
-                          ID : {index.idDemande}
-                          <span
-                            onClick={() => success(index.idDemande)}
-                            style={{
-                              marginLeft: '10px',
-                              color: 'blue',
-                              fontWeight: 'bolder',
-                              cursor: 'pointer',
-                              textAlign: 'center',
-                            }}
-                          >
-                            copy ID
-                          </span>
-                        </p>
+                        ID : {index.idDemande}
+                        <span
+                          onClick={() => success(index.idDemande)}
+                          style={{
+                            marginLeft: '10px',
+                            color: 'blue',
+                            fontWeight: 'bolder',
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                          }}
+                        >
+                          copy ID
+                        </span>
                         {index.codeclient !== undefined && index.codeclient};
                         {index?.sat} {index?.reference}
                         {index?.statut}; {index?.raison.toLowerCase()},{' '}
@@ -132,7 +130,7 @@ function Liste({ donner }) {
                         <Message fontSize="small" /> <span>Feedback</span>
                       </div>
                     </div>
-                    <div className='contentDemande'>
+                    <div className="contentDemande">
                       <div className="reponseListe">
                         <p>
                           {index.reponse[0]?.codeclient};{' '}
@@ -147,7 +145,7 @@ function Liste({ donner }) {
                         <p>
                           statut payement
                           <span style={{ fontWeight: 'bolder' }}>
-                            {" : "+index.reponse[0]?.PayementStatut}
+                            {' : ' + index.reponse[0]?.PayementStatut}
                           </span>{' '}
                         </p>
                         <p>
@@ -158,18 +156,22 @@ function Liste({ donner }) {
                         </p>
                         <p>{index.reponse[0]?.codeCu}</p>
                         <p>{index.reponse[0]?.action}</p>
-                        
                       </div>
                       {!index.reponse[0]?.action &&
-                          ['expired', 'defaulted'].includes(
-                            index.reponse[0].PayementStatut,
-                          ) && (
-                            <button className='actionbtn' onClick={(e)=>{
+                        ['expired', 'defaulted'].includes(
+                          index.reponse[0].PayementStatut,
+                        ) && (
+                          <button
+                            className="actionbtn"
+                            onClick={(e) => {
                               e.preventDefault()
                               setclientSelect(index.reponse[0]._id)
                               setOpenAction(true)
-                            }}>Action ?</button>
-                          )}
+                            }}
+                          >
+                            Action ?
+                          </button>
+                        )}
                     </div>
                   </>
                 )}
@@ -184,9 +186,9 @@ function Liste({ donner }) {
           <FormReclamation id={_id} close={setOpen} />
         </Popup>
       )}
-        <Popup open={openAction} setOpen={setOpenAction} title="Action">
-          <Action id={clientSelect} setOpen={setOpenAction} />
-        </Popup>
+      <Popup open={openAction} setOpen={setOpenAction} title="Action">
+        <Action id={clientSelect} setOpen={setOpenAction} />
+      </Popup>
     </>
   )
 }
