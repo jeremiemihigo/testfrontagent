@@ -6,27 +6,19 @@ import { Button, Grid } from '@mui/material'
 import axios from 'axios'
 import { lien, lien_image } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
-import { Language, Send, Clear } from '@mui/icons-material'
-import { useSelector } from 'react-redux'
-import AutoComplement from './Control/AutoComplete'
+import { Language } from '@mui/icons-material'
 
 import { Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, Box } from '@mui/material'
 
 function UpdateDemande({ demande, close }) {
+ 
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
-  const raisonRedux = useSelector((state) => state.raison?.raison)
-  const [valueRaison, setValueRaison] = React.useState('')
-  const [showAutre, setAutre] = React.useState(false)
-  React.useEffect(() => {
-    if (valueRaison !== '' && valueRaison.raison === 'Autres') {
-      setAutre(true)
-    }
-  }, [valueRaison])
+
 
   const [loadings, setLoadings] = React.useState(false)
 
@@ -70,7 +62,6 @@ function UpdateDemande({ demande, close }) {
         setMessage('Veuillez renseigner les champs')
       } else {
         setMessage('')
-        let raison = showAutre ? initial?.raison : valueRaison?.raison
         const datas = new FormData()
         datas.append('file', file)
         datas.append('longitude', location?.longitude)
@@ -80,7 +71,7 @@ function UpdateDemande({ demande, close }) {
         datas.append('codeZone', localStorage.getItem('codeZone'))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
-        datas.append('raison', raison)
+        datas.append('raison', initial?.raison)
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
@@ -122,9 +113,7 @@ function UpdateDemande({ demande, close }) {
 
   useEffect(() => {
     setInitial({ ...demande })
-    if (raisonRedux.filter((x) => x.raison === demande.raison).length > 0) {
-      setValueRaison(raisonRedux.filter((x) => x.raison === demande.raison)[0])
-    }
+    
     setLocation({
       latitude: demande.coordonnes.latitude,
       longitude: demande.coordonnes.longitude,
@@ -200,7 +189,6 @@ function UpdateDemande({ demande, close }) {
             type="file"
             accept=".png, .jpg, .jpeg"
           />
-          {file && <img src={file} alt="fichiers" />}
         </div>
         <div style={{ marginBottom: '10px' }}>
           
@@ -231,17 +219,10 @@ function UpdateDemande({ demande, close }) {
       </Box>
         </div>
         <div style={{ marginBottom: '10px' }}>
-          {!showAutre && (
-            <AutoComplement
-              value={valueRaison}
-              setValue={setValueRaison}
-              options={raisonRedux}
-              title="Selectionnez le feedback"
-            />
-          )}
-          {showAutre && (
+          
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div style={{ width: '80%' }}>
+               
                 <Input
                   value={returnValue('raison')}
                   placeholder="Feedback || Raison de non payement *"
@@ -249,17 +230,9 @@ function UpdateDemande({ demande, close }) {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              <div
-                onClick={() => {
-                  setValueRaison('')
-                  setAutre(false)
-                }}
-                style={{ width: '10%', marginLeft: '10px', color: 'red' }}
-              >
-                <Clear />
-              </div>
+              
             </div>
-          )}
+          
         </div>
         <div style={{ marginTop: '10px' }}>
           <Input
@@ -308,9 +281,8 @@ function UpdateDemande({ demande, close }) {
               onClick={(e) => sendData(e)}
               disabled={loadings}
             >
-              <Send fontSize="small" />
               <span style={{ marginLeft: '10px' }}>
-                {loadings && 'Patientez...'}
+                {loadings ? 'Patientez...':"Modifier"}
               </span>
             </Button>
           </Grid>
