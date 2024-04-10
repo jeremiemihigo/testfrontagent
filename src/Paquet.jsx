@@ -111,12 +111,12 @@ function Paquet() {
             ]
           }
           </strong>
-          !! Ce message concerne la maniere dont vous devez completé le champs feedback du client
+          !! Ce message concerne la manière dont vous devez compléter le champ feedback du client.
         </p>
        
         <ol>
-          <li>En completant ce champs, la plateforme vous propose une liste des feedback simulaires à ce que vous ecrivez</li>
-          <li>Si le feedback existe dans la liste proposée, veuillez cliquer dessous et continuer la suite</li>
+          <li>En complétant ce champ, la plateforme vous propose une liste de feedbacks similaires à ce que vous écrivez.</li>
+          <li>Si le feedback existe dans la liste proposée, veuillez cliquer dessus et continuer la suite</li>
         </ol>
         <p
            className='tittreQuestion'
