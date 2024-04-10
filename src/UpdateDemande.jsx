@@ -4,21 +4,27 @@ import { Input } from 'antd'
 import React, { useEffect } from 'react'
 import { Button, Grid } from '@mui/material'
 import axios from 'axios'
-import { lien, lien_image } from './Static'
+import { lien } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
 import { Language } from '@mui/icons-material'
-
-import { Checkbox,FormControl,FormLabel,FormControlLabel,FormGroup, Box } from '@mui/material'
+import TextArea from './Control/TextArea'
+import {
+  Checkbox,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  FormGroup,
+  Box,
+} from '@mui/material'
 
 function UpdateDemande({ demande, close }) {
- 
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
-
+  const [raisonRwrite, setRaisonRwrite] = React.useState('')
 
   const [loadings, setLoadings] = React.useState(false)
 
@@ -78,7 +84,7 @@ function UpdateDemande({ demande, close }) {
         datas.append('sat', initial?.sat)
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
-        datas.append("id", demande._id)
+        datas.append('id', demande._id)
 
         const response = await axios.put(lien + '/updateDemande', datas)
 
@@ -88,9 +94,8 @@ function UpdateDemande({ demande, close }) {
           // const form = document.getElementById('formDemande')
           // const fileInput = form.querySelector('input[type="file"]')
           // fileInput.value = ''
-         
+
           setMessage('Done : ' + response.data.idDemande)
-         
         }
         if (response.status === 201) {
           setMessage(response.data)
@@ -104,7 +109,11 @@ function UpdateDemande({ demande, close }) {
   }
 
   const returnValue = (champs) => {
-    if (initial && initial['' + champs] && initial['' + champs] !== "undefined" ) {
+    if (
+      initial &&
+      initial['' + champs] &&
+      initial['' + champs] !== 'undefined'
+    ) {
       return initial['' + champs]
     } else {
       return ''
@@ -113,7 +122,7 @@ function UpdateDemande({ demande, close }) {
 
   useEffect(() => {
     setInitial({ ...demande })
-    
+
     setLocation({
       latitude: demande.coordonnes.latitude,
       longitude: demande.coordonnes.longitude,
@@ -121,6 +130,7 @@ function UpdateDemande({ demande, close }) {
     })
     // donnerStat.filter(x=>x.value === demande.statut)
     setValue(demande.statut)
+    setRaisonRwrite(demande.raison)
   }, [demande])
 
   return (
@@ -190,49 +200,40 @@ function UpdateDemande({ demande, close }) {
             accept=".png, .jpg, .jpeg"
           />
         </div>
+       
         <div style={{ marginBottom: '10px' }}>
-          
-          {demande && <img width={100} height={100} src={`${lien_image}/${demande.file}`} alt="fichiers" />}
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-
-        <Box sx={{ display: 'flex' }}>
-        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-          <FormGroup>
-            <FormControlLabel
-               onClick={() => setValue('allumer')}
-              control={<Checkbox checked={value === 'allumer'} name="allumer" />}
-              label="Allumé"
-            />
-          </FormGroup>
-        </FormControl>
-        <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
-          <FormLabel component="legend"></FormLabel>
-          <FormGroup>
-            <FormControlLabel
-               onClick={() => setValue('eteint')}
-              control={<Checkbox checked={value === 'eteint'} name="eteint" />}
-              label="Eteint"
-            />
-          </FormGroup>
-        </FormControl>
-      </Box>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ width: '80%' }}>
-               
-                <Input
-                  value={returnValue('raison')}
-                  placeholder="Feedback || Raison de non payement *"
-                  name="raison"
-                  onChange={(e) => handleChange(e)}
+          <Box sx={{ display: 'flex' }}>
+            <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+              <FormGroup>
+                <FormControlLabel
+                  onClick={() => setValue('allumer')}
+                  control={
+                    <Checkbox checked={value === 'allumer'} name="allumer" />
+                  }
+                  label="Allumé"
                 />
-              </div>
-              
-            </div>
-          
+              </FormGroup>
+            </FormControl>
+            <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
+              <FormLabel component="legend"></FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  onClick={() => setValue('eteint')}
+                  control={
+                    <Checkbox checked={value === 'eteint'} name="eteint" />
+                  }
+                  label="Eteint"
+                />
+              </FormGroup>
+            </FormControl>
+          </Box>
+        </div>
+        <div style={{ marginBottom: '10px' }}>
+          <TextArea
+            setValue={setRaisonRwrite}
+            value={raisonRwrite}
+            placeholder="Mentionnez le feedback *"
+          />
         </div>
         <div style={{ marginTop: '10px' }}>
           <Input
@@ -282,7 +283,7 @@ function UpdateDemande({ demande, close }) {
               disabled={loadings}
             >
               <span style={{ marginLeft: '10px' }}>
-                {loadings ? 'Patientez...':"Modifier"}
+                {loadings ? 'Patientez...' : 'Modifier'}
               </span>
             </Button>
           </Grid>

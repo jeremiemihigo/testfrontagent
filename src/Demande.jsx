@@ -15,6 +15,8 @@ import {
   Box,
 } from '@mui/material'
 import { CreateContexte } from './Context'
+import { useSelector } from 'react-redux'
+import AutoComplement from './Control/AutoComplete'
 import TextArea from './Control/TextArea'
 
 function Demande() {
@@ -25,7 +27,11 @@ function Demande() {
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
-  const [raison, setRaison] = React.useState('')
+  const raisonRedux = useSelector((state) => state.raison.raison)
+
+  const [raisonSelect, setRaisonSelect] = React.useState('')
+  const [raisonRwrite, setRaisonRwrite] = React.useState("")
+  const [autre, setAutre] = React.useState(false)
 
   const [loadings, setLoadings] = React.useState(false)
 
@@ -45,7 +51,7 @@ function Demande() {
     setGenerateLoc(false)
   }
   function error() {
-    console.log('Unable to retrieve your location')
+    setMessage('Unable to retrieve your location')
   }
   function handleLocationClick() {
     setGenerateLoc(true)
@@ -64,11 +70,16 @@ function Demande() {
         !initial?.reference ||
         !initial?.sat ||
         !initial?.cell ||
-        raison === '' || !file || value === ""
+       (raisonSelect === "" && raisonRwrite === "") ||
+        !file ||
+        value === ''
       ) {
-        setMessage("Veuillez renseigner les champs ayant l'asterisque ainsi que la photo")
+        setMessage(
+          "Veuillez renseigner les champs ayant l'asterisque ainsi que la photo",
+        )
       } else {
         setMessage('')
+        
         const datas = new FormData()
         datas.append('file', file)
         datas.append('longitude', location?.longitude)
@@ -79,7 +90,7 @@ function Demande() {
         datas.append('idShop', localStorage.getItem('shop'))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
-        datas.append('raison', raison)
+        datas.append('raison', autre ? raisonRwrite : raisonSelect?.raison)
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
@@ -94,7 +105,8 @@ function Demande() {
           fileInput.value = ''
           setInitial()
           setImage()
-          setRaison('')
+          setAutre(false)
+          setRaisonSelect('')
           setValue('')
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
         }
@@ -118,6 +130,12 @@ function Demande() {
     } else {
       return ''
     }
+  }
+
+  const changeRaison=()=>{
+    setRaisonRwrite("")
+    setRaisonSelect("")
+    setAutre(!autre)
   }
 
   return (
@@ -219,11 +237,37 @@ function Demande() {
           </Box>
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <TextArea
-            setValue={setRaison}
-            value={raison}
-            placeholder="Feedback || Raison de non payement *"
-          />
+          {autre ? (
+            <TextArea
+              setValue={setRaisonRwrite}
+              value={raisonRwrite}
+              placeholder="Mentionnez le feedback *"
+            />
+          ) : (
+            raisonRedux && (
+              <AutoComplement
+                value={raisonSelect}
+                setValue={setRaisonSelect}
+                options={raisonRedux}
+                title="Selectionnez le feedback *"
+                propr="raison"
+              />
+            )
+          )}
+
+          <p
+            onClick={() => changeRaison()}
+            style={{
+              fontSize: '12px',
+              textAlign: 'right',
+              cursor: 'pointer',
+              color: 'blue',
+              fontWeight: 'bolder',
+              margin: '5px',
+            }}
+          >
+            {autre ? "Choisir la selection du feedback":"Mentionnez le feedback"}
+          </p>
         </div>
         <div style={{ marginTop: '10px' }}>
           <Input

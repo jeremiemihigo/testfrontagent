@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();
 
-function AutoComplement({ value, setValue, options, title }) {
+function AutoComplement({ value, setValue, options, title, propr }) {
   return (
     <Autocomplete
       value={value}
@@ -44,12 +44,12 @@ function AutoComplement({ value, setValue, options, title }) {
           return option.inputValue;
         }
         // Regular option
-        return option.raison;
+        return option['' + propr];
       }}
-      renderOption={(props, option) => <li {...props}>{option.raison}</li>}
+      renderOption={(props, option) => <li {...props}>{option['' + propr]}</li>}
       sx={{ width: '100%' }}
       freeSolo
-      renderInput={(params) => <TextField sx={{fontSize:"10px", padding:"0px"}} {...params} label={title || 'Titre'} />}
+      renderInput={(params) => <TextField {...params} label={title || 'Titre'} />}
     />
   );
 }

@@ -19,10 +19,6 @@ function Paquet() {
     setLoad(true)
     try {
       const response = await axios.get(`${lien}/paquet`, config)
-      localStorage.removeItem('commune')
-      localStorage.removeItem('cell')
-      localStorage.removeItem('quartier')
-
       if (response.status === 201) {
         localStorage.removeItem('auth')
         localStorage.removeItem('codeAgent')
@@ -103,10 +99,35 @@ function Paquet() {
             )
           })}
       </div>
-     
 
       {lotSelect && <Liste lot={lotSelect} />}
-      
+      <div style={{ marginTop: '12px' }}>
+        <p className='titreName'>
+          Hello
+          <strong>
+          { " "+
+            localStorage.getItem('nom').split(' ')[
+              localStorage.getItem('nom').split(' ').length - 1
+            ]
+          }
+          </strong>
+          !! Ce message concerne la maniere dont vous devez completé le champs feedback du client
+        </p>
+       
+        <ol>
+          <li>En completant ce champs, la plateforme vous propose une liste des feedback simulaires à ce que vous ecrivez</li>
+          <li>Si le feedback existe dans la liste proposée, veuillez cliquer dessous et continuer la suite</li>
+        </ol>
+        <p
+           className='tittreQuestion'
+        >
+          Si le feedback n&apos;est pas dans la liste proposée
+        </p>
+        <ol>
+          <li>Cliquer sur <strong>Mentionnez le feedback</strong> et</li>
+          <li>Remplissez le champs <strong>Feedback</strong></li>
+        </ol>
+      </div>
     </div>
   )
 }

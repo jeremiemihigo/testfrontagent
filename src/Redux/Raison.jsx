@@ -1,25 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { lien } from '../Static'
+import { lien, config } from '../Static'
 
 const initialState = {
   raison: [],
   readRaison: '',
   readRaisonError: '',
-  postRaison: '',
-  postRaisonError: '',
-  updateRaison: '',
-  updateRaisonError: '',
-  deleteRaison: '',
-  deleteRaisonError: '',
 }
-
-export const ReadRaison = createAsyncThunk(
-  'raison/ReadRaison',
-  async (data, { rejectWithValue }) => {
+export const RaisonRead = createAsyncThunk(
+  'raison/RaisonRead',
+  async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(lien + '/raison')
+      const response = await axios.get(lien + '/raison', config)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data)
@@ -27,52 +20,33 @@ export const ReadRaison = createAsyncThunk(
   },
 )
 
-const demande = createSlice({
-  name: 'demande',
+const user = createSlice({
+  name: 'raison',
   initialState,
   reducers: {},
   extraReducers: {
-    [ReadRaison.pending]: (state, action) => {
+    [RaisonRead.pending]: (state, action) => {
       return {
         ...state,
         readRaison: 'pending',
         readRaisonError: '',
-        postRaison: '',
-        postRaisonError: '',
-        updateRaison: '',
-        updateRaisonError: '',
-        deleteRaison: '',
-        deleteRaisonError: '',
       }
     },
-    [ReadRaison.fulfilled]: (state, action) => {
+    [RaisonRead.fulfilled]: (state, action) => {
       return {
-        ...state,
         raison: action.payload,
         readRaison: 'success',
         readRaisonError: '',
-        postRaison: '',
-        postRaisonError: '',
-        updateRaison: '',
-        updateRaisonError: '',
-        deleteRaison: '',
-        deleteRaisonError: '',
       }
     },
-    [ReadRaison.rejected]: (state, action) => {
+    [RaisonRead.rejected]: (state, action) => {
       return {
         ...state,
         readRaison: 'rejected',
         readRaisonError: action.payload,
-        postRaison: '',
-        postRaisonError: '',
-        updateRaison: '',
-        updateRaisonError: '',
-        deleteRaison: '',
-        deleteRaisonError: '',
       }
     },
   },
 })
 
-export default demande.reducer
+export default user.reducer
