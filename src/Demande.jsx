@@ -79,7 +79,8 @@ function Demande() {
         )
       } else {
         setMessage('')
-        
+        let raison = autre ? raisonRwrite : raisonSelect?.raison
+        console.log(raison)
         const datas = new FormData()
         datas.append('file', file)
         datas.append('longitude', location?.longitude)
@@ -90,7 +91,7 @@ function Demande() {
         datas.append('idShop', localStorage.getItem('shop'))
         datas.append('codeclient', initial?.codeclient)
         datas.append('statut', value)
-        datas.append('raison', autre ? raisonRwrite : raisonSelect?.raison)
+        datas.append('raison', raison)
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
@@ -98,6 +99,8 @@ function Demande() {
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
         const response = await axios.post(lien + '/demande', datas)
+        console.log(response)
+        
         if (response.data?._id) {
           setLocation(null)
           const form = document.getElementById('formDemande')
@@ -117,6 +120,7 @@ function Demande() {
       }
       setLoadings(false)
     } catch (error) {
+      console.log(error)
       if (error.code === 'ERR_NETWORK') {
         setLoadings(false)
         setMessage('Rassurez-vous que votre appareil a une connexion active')
