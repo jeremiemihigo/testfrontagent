@@ -8,9 +8,7 @@ const initialState = {
   readRaison: '',
   readRaisonError: '',
 }
-export const RaisonRead = createAsyncThunk(
-  'raison/RaisonRead',
-  async (id, { rejectWithValue }) => {
+export const RaisonRead = createAsyncThunk('raison/RaisonRead', async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(lien + '/raison', config)
       return response.data
@@ -20,7 +18,7 @@ export const RaisonRead = createAsyncThunk(
   },
 )
 
-const user = createSlice({
+const raison = createSlice({
   name: 'raison',
   initialState,
   reducers: {},
@@ -49,4 +47,4 @@ const user = createSlice({
   },
 })
 
-export default user.reducer
+export default raison.reducer
