@@ -131,7 +131,7 @@ function Paquet() {
           <li>Remplissez le champs <strong>Feedback</strong></li>
         </ol>
       </div>
-      <Popup open={open} setOpen={setOpen} title="Tous les feedback possible">
+      <Popup open={open} setOpen={setOpen} title="Tous les feedback possibles">
         <VoirPlus/>
       </Popup>
     </div>
