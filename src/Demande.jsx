@@ -99,7 +99,7 @@ function Demande() {
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
         const response = await axios.post(lien + '/demande', datas)
-        console.log(response)
+       
         
         if (response.data?._id) {
           setLocation(null)
@@ -120,9 +120,8 @@ function Demande() {
       }
       setLoadings(false)
     } catch (error) {
-      console.log(error)
+      setLoadings(false)
       if (error.code === 'ERR_NETWORK') {
-        setLoadings(false)
         setMessage('Rassurez-vous que votre appareil a une connexion active')
       }
     }
