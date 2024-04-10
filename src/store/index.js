@@ -3,8 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // project import
 import reducers from './reducers';
-import { ReadUser } from '../Redux/user';
-import { RaisonRead } from '../Redux/raison';
+import { ReadUser } from '../Redux/user.jsx';
+import { RaisonRead } from '../Redux/raison.jsx';
 // ==============================|| REDUX TOOLKIT - MAIN STORE ||============================== //
 
 const store = configureStore({
