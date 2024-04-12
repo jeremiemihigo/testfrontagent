@@ -7,14 +7,11 @@ import Liste from './Liste.jsx'
 import './style.css'
 import { CreateContexte } from './Context.jsx'
 import { useNavigate } from 'react-router-dom'
-import VoirPlus from './VoirPlus.jsx'
-import Popup from './Control/Popup.jsx'
 
 function Paquet() {
   const [data, setData] = React.useState()
   const [load, setLoad] = React.useState(false)
   const [lotSelect, setLotSelect] = React.useState()
-  const [open, setOpen] = React.useState(false)
   const navigation = useNavigate()
 
   const { title, handleChangeTitle } = React.useContext(CreateContexte)
@@ -104,36 +101,8 @@ function Paquet() {
       </div>
 
       {lotSelect && <Liste lot={lotSelect} />}
-      <div style={{ marginTop: '12px' }}>
-        <p className='titreName'>
-          Hello
-          <strong>
-          { " "+
-            localStorage.getItem('nom').split(' ')[
-              localStorage.getItem('nom').split(' ').length - 1
-            ]
-          }
-          </strong>
-          !! Ce message concerne la manière dont vous devez compléter le champ feedback du client.
-        </p>
-       
-        <ol>
-          <li>En complétant ce champ, la plateforme vous propose une liste de feedbacks similaires à ce que vous écrivez. <span onClick={()=>setOpen(true)} style={{color:"blue", cursor:"pointer", marginLeft:"10px"}}>plus</span></li>
-          <li>Si le feedback existe dans la liste proposée, veuillez cliquer dessus et continuer la suite</li>
-        </ol>
-        <p
-           className='tittreQuestion'
-        >
-          Si le feedback n&apos;est pas dans la liste proposée
-        </p>
-        <ol>
-          <li>Cliquer sur <strong>Mentionnez le feedback</strong> et</li>
-          <li>Remplissez le champs <strong>Feedback</strong></li>
-        </ol>
-      </div>
-      <Popup open={open} setOpen={setOpen} title="Tous les feedback possibles">
-        <VoirPlus/>
-      </Popup>
+     
+     
     </div>
   )
 }

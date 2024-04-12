@@ -20,6 +20,7 @@ function Liste({ lot }) {
         {critere === 'attentes' && <Attente donner={donner} />}
         {critere === 'nConformes' && <NonConforme donner={donner} />}
       </div>
+    
     </div>
   )
 }
