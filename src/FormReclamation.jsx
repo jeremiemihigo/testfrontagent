@@ -22,10 +22,9 @@ function FormReclamation({ id, data, setData, close }) {
         sender: 'agent',
         message: initial,
       })
-
+      setInitial('')
       if (response.data[0]?.message) {
         setData([...data, response.data[0]])
-        setInitial('')
       }
       if (response.status === 201) {
         setMessage(response.data)

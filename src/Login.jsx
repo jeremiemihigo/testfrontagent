@@ -72,8 +72,7 @@ function Login() {
                   onChange={(e) => handleChange(e)}
                   type="text"
                   name="username"
-                  
-                  placeholder="Code agent"
+                  placeholder="ID"
                 />
               </div>
               <div className="login__field">

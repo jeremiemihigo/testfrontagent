@@ -80,7 +80,7 @@ function Demande() {
       } else {
         setMessage('')
         let raison = autre ? raisonRwrite : raisonSelect?.raison
-        console.log(raison)
+      
         const datas = new FormData()
         datas.append('file', file)
         datas.append('longitude', location?.longitude)
@@ -99,7 +99,7 @@ function Demande() {
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
         const response = await axios.post(lien + '/demande', datas)
-       
+       console.log(response)
         
         if (response.data?._id) {
           setLocation(null)
@@ -120,6 +120,7 @@ function Demande() {
       }
       setLoadings(false)
     } catch (error) {
+      console.log(error)
       setLoadings(false)
       if (error.code === 'ERR_NETWORK') {
         setMessage('Rassurez-vous que votre appareil a une connexion active')

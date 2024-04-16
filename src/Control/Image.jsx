@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Image, Space } from 'antd'
 
-function ImageComponent({ src, }) {
+function ImageComponent({ src }) {
   return (
     <div style={{marginRight:"5px"}}>
       <Space size={12}>
