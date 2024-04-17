@@ -18,9 +18,11 @@ import { CreateContexte } from './Context'
 import { useSelector } from 'react-redux'
 import AutoComplement from './Control/AutoComplete'
 import TextArea from './Control/TextArea'
+// import UploadImage from './Image'
 
 function Demande() {
   const { title } = React.useContext(CreateContexte)
+  const [fichier, setFichier] = React.useState("")
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
@@ -98,6 +100,24 @@ function Demande() {
         datas.append('sat', initial?.sat)
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
+      //   let donnes = {}
+      //  donnes.file = fichier[0]?.thumbUrl
+      //   donnes.longitude = location?.longitude
+      //   donnes.latitude=  location?.latitude
+      //   donnes.altitude= location?.altitude
+      //   donnes.codeAgent= localStorage.getItem('codeAgent')
+      //   donnes.codeZone= localStorage.getItem('codeZone')
+      //   donnes.idShop = localStorage.getItem('shop')
+      //   donnes.codeclient= initial?.codeclient
+      //   donnes.statut= value
+      //   donnes.raison= raison
+      //   donnes.sector= initial?.sector
+      //   donnes.cell= initial?.cell
+      //   donnes.reference= initial?.reference
+      //   donnes.sat= initial?.sat
+      //   donnes.numero= initial?.numero
+      //   donnes.commune= initial?.commune
+      //   console.log(donnes)
         const response = await axios.post(lien + '/demande', datas)
        console.log(response)
         
@@ -107,7 +127,8 @@ function Demande() {
           const fileInput = form.querySelector('input[type="file"]')
           fileInput.value = ''
           setInitial()
-          setImage()
+          // setImage()
+          setFichier("")
           setAutre(false)
           setRaisonSelect('')
           setValue('')
@@ -141,7 +162,7 @@ function Demande() {
     setRaisonSelect("")
     setAutre(!autre)
   }
-
+console.log(fichier)
   return (
     <>
       <div className="titre">
@@ -152,6 +173,7 @@ function Demande() {
         {message && (
           <DirectionSnackbar message={message} open={open} setOpen={setOpen} />
         )}
+       
         <div style={{ marginBottom: '10px' }}>
           <Input
             placeholder="Code client"
@@ -204,6 +226,8 @@ function Demande() {
         </div>
 
         <div style={{ marginBottom: '10px' }}>
+         {/* <UploadImage setFile={setFichier} /> */}
+        
           <input
             onChange={(event) => {
               const file = event.target.files[0]
