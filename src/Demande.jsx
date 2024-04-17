@@ -3,7 +3,7 @@ import { Input } from 'antd'
 import React from 'react'
 import { Button, Grid } from '@mui/material'
 import axios from 'axios'
-import { lien } from './Static'
+import { lien, raison } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
 import { Language, Send } from '@mui/icons-material'
 import {
@@ -15,7 +15,6 @@ import {
   Box,
 } from '@mui/material'
 import { CreateContexte } from './Context'
-import { useSelector } from 'react-redux'
 import AutoComplement from './Control/AutoComplete'
 import TextArea from './Control/TextArea'
 // import UploadImage from './Image'
@@ -29,7 +28,6 @@ function Demande() {
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
-  const raisonRedux = useSelector((state) => state.raison.raison)
 
   const [raisonSelect, setRaisonSelect] = React.useState('')
   const [raisonRwrite, setRaisonRwrite] = React.useState("")
@@ -271,17 +269,14 @@ console.log(fichier)
               value={raisonRwrite}
               placeholder="Mentionnez le feedback *"
             />
-          ) : (
-            raisonRedux && (
-              <AutoComplement
-                value={raisonSelect}
-                setValue={setRaisonSelect}
-                options={raisonRedux}
-                title="Selectionnez le feedback *"
-                propr="raison"
-              />
-            )
-          )}
+          ) :  <AutoComplement
+          value={raisonSelect}
+          setValue={setRaisonSelect}
+          options={raison}
+          title="Selectionnez le feedback *"
+          propr="raison"
+        />
+          }
 
           <p
             onClick={() => changeRaison()}
