@@ -50,7 +50,7 @@ function NonConforme({ donner }) {
                   
                   <Typography component="p" sx={{ fontSize: '13px' }}>
                     
-                      ID : {index.idDemande}
+                      code : {index.idDemande}
                       <span
                         onClick={() => success(index.idDemande)}
                         style={{
@@ -61,7 +61,7 @@ function NonConforme({ donner }) {
                           textAlign: 'center',
                         }}
                       >
-                        copy ID
+                        copy code
                       </span>
                       <span style={{ float: 'right', fontSize: '10px' }}>
                         {moment(index.createdAt).fromNow()}
@@ -89,7 +89,13 @@ function NonConforme({ donner }) {
                     <Message fontSize="small" /> <span>Feedback</span>
                   </div>
                 </div>
+                {
+                  index.double && <p style={{fontSize:"12px", margin:"0px", color:"blue", textAlign:"center"}}>
+                    Cette visite est déjà dans tes visites validées
+                      </p>
+                }
                 <div>
+                  
                   {index.conversation.length > 0 &&
                     index.conversation.map((item) => {
                       return (
