@@ -47,26 +47,24 @@ function NonConforme({ donner }) {
               <React.Fragment key={index._id}>
                 <div className="listeImage">
                   <ImageComponent src={`${lien_image}/${index.file}`} />
-                  
+
                   <Typography component="p" sx={{ fontSize: '13px' }}>
-                    
-                      code : {index.idDemande}
-                      <span
-                        onClick={() => success(index.idDemande)}
-                        style={{
-                          marginLeft: '10px',
-                          color: 'blue',
-                          fontWeight: 'bolder',
-                          cursor: 'pointer',
-                          textAlign: 'center',
-                        }}
-                      >
-                        copy code
-                      </span>
-                      <span style={{ float: 'right', fontSize: '10px' }}>
-                        {moment(index.createdAt).fromNow()}
-                      </span>
-                    
+                    code : {index.idDemande}
+                    <span
+                      onClick={() => success(index.idDemande)}
+                      style={{
+                        marginLeft: '10px',
+                        color: 'blue',
+                        fontWeight: 'bolder',
+                        cursor: 'pointer',
+                        textAlign: 'center',
+                      }}
+                    >
+                      copy code
+                    </span>
+                    <span style={{ float: 'right', fontSize: '10px' }}>
+                      {moment(index.createdAt).fromNow()}
+                    </span>
                     {index.codeclient !== undefined && index.codeclient};
                     {index?.sat} {index?.reference}
                     {index?.statut}; {index?.raison.toLowerCase()},{' '}
@@ -89,13 +87,20 @@ function NonConforme({ donner }) {
                     <Message fontSize="small" /> <span>Feedback</span>
                   </div>
                 </div>
-                {
-                  index.double && <p style={{fontSize:"12px", margin:"0px", color:"blue", textAlign:"center"}}>
-                    Cette visite est déjà dans tes visites validées
-                      </p>
-                }
+                {index.double && (
+                  <div style={{ margin: '0px', background: '#4684D3' }}>
+                    <p
+                      style={{
+                        fontSize: '12px',
+                        color: '#FFFFFF',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Cette visite est déjà dans tes visites validées
+                    </p>
+                  </div>
+                )}
                 <div>
-                  
                   {index.conversation.length > 0 &&
                     index.conversation.map((item) => {
                       return (
