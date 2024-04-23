@@ -3,8 +3,8 @@
 // export const lien = "http://109.199.122.241:5000/bboxx/support";
 // export const lien_image = "http://109.199.122.241:5000/bboxx/image";
 
-export const lien = "https://bboxxbackend-app.onrender.com/bboxx/support";
-export const lien_image = "https://bboxxbackend-app.onrender.com/bboxx/image";
+export const lien = "https://bboxxbackendtest.onrender.com/bboxx/support";
+export const lien_image = "https://bboxxbackendtest.onrender.com/bboxx/image";
 export const dateFrancais = (donner) => {
     let dates = new Date(donner);
     return `${dates.getDate()}/${dates.getMonth() + 1}/${dates.getFullYear()}`;
