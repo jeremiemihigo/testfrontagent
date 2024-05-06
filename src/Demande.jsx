@@ -3,7 +3,7 @@ import { Input } from 'antd'
 import React from 'react'
 import { Button, Grid } from '@mui/material'
 import axios from 'axios'
-import { lien, raison } from './Static'
+import { lien, raison, sat } from './Static'
 import DirectionSnackbar from './Control/SnackBar'
 import { Language, Send } from '@mui/icons-material'
 import {
@@ -21,13 +21,13 @@ import TextArea from './Control/TextArea'
 
 function Demande() {
   const { title } = React.useContext(CreateContexte)
-  const [fichier, setFichier] = React.useState("")
   const [initial, setInitial] = React.useState()
   const [value, setValue] = React.useState('')
   const [message, setMessage] = React.useState('')
   const [open, setOpen] = React.useState(true)
   const [generateLoc, setGenerateLoc] = React.useState(false)
   const [file, setImage] = React.useState()
+  const [satSelect, setSatSelect] = React.useState("")
 
   const [raisonSelect, setRaisonSelect] = React.useState('')
   const [raisonRwrite, setRaisonRwrite] = React.useState("")
@@ -62,13 +62,14 @@ function Demande() {
       setGenerateLoc(false)
     }
   }
+  
   const sendData = async (e) => {
     try {
       setLoadings(true)
       e.preventDefault()
       if (
         !initial?.reference ||
-        !initial?.sat ||
+        satSelect === "" ||
         !initial?.cell ||
        (raisonSelect === "" && raisonRwrite === "") ||
         !file ||
@@ -95,29 +96,12 @@ function Demande() {
         datas.append('sector', initial?.sector) //placeholder = Sector/constituency
         datas.append('cell', initial?.cell) //placeholder = Cell/Ward
         datas.append('reference', initial?.reference) //placeholder = Reference
-        datas.append('sat', initial?.sat)
+        datas.append('sat', satSelect?.nom_SAT)
         datas.append('numero', initial?.numero)
         datas.append('commune', initial?.commune)
-      //   let donnes = {}
-      //  donnes.file = fichier[0]?.thumbUrl
-      //   donnes.longitude = location?.longitude
-      //   donnes.latitude=  location?.latitude
-      //   donnes.altitude= location?.altitude
-      //   donnes.codeAgent= localStorage.getItem('codeAgent')
-      //   donnes.codeZone= localStorage.getItem('codeZone')
-      //   donnes.idShop = localStorage.getItem('shop')
-      //   donnes.codeclient= initial?.codeclient
-      //   donnes.statut= value
-      //   donnes.raison= raison
-      //   donnes.sector= initial?.sector
-      //   donnes.cell= initial?.cell
-      //   donnes.reference= initial?.reference
-      //   donnes.sat= initial?.sat
-      //   donnes.numero= initial?.numero
-      //   donnes.commune= initial?.commune
-      //   console.log(donnes)
+     
         const response = await axios.post(lien + '/demande', datas)
-       console.log(response)
+     
         
         if (response.data?._id) {
           setLocation(null)
@@ -126,9 +110,9 @@ function Demande() {
           fileInput.value = ''
           setInitial()
           // setImage()
-          setFichier("")
           setAutre(false)
           setRaisonSelect('')
+          setSatSelect("")
           setValue('')
           setMessage('Enregistrement effectuer : ' + response.data.idDemande)
         }
@@ -139,7 +123,6 @@ function Demande() {
       }
       setLoadings(false)
     } catch (error) {
-      console.log(error)
       setLoadings(false)
       if (error.code === 'ERR_NETWORK') {
         setMessage('Rassurez-vous que votre appareil a une connexion active')
@@ -160,7 +143,6 @@ function Demande() {
     setRaisonSelect("")
     setAutre(!autre)
   }
-console.log(fichier)
   return (
     <>
       <div className="titre">
@@ -215,12 +197,14 @@ console.log(fichier)
           />
         </div>
         <div style={{ marginBottom: '10px' }}>
-          <Input
-            name="sat"
-            value={returnValue('sat')}
-            onChange={(e) => handleChange(e)}
-            placeholder="Sat *"
-          />
+        <AutoComplement
+          value={satSelect}
+          setValue={setSatSelect}
+          options={sat}
+          title="Selectionnez le sat du client *"
+          propr="nom_SAT"
+        />
+        
         </div>
 
         <div style={{ marginBottom: '10px' }}>
