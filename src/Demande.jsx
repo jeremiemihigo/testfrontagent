@@ -62,14 +62,13 @@ function Demande() {
       setGenerateLoc(false)
     }
   }
-  
   const sendData = async (e) => {
     try {
       setLoadings(true)
       e.preventDefault()
       if (
         !initial?.reference ||
-        satSelect === "" ||
+        satSelect === "" || !satSelect ||
         !initial?.cell ||
        (raisonSelect === "" && raisonRwrite === "") ||
         !file ||
