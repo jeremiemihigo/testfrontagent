@@ -1,15 +1,15 @@
-import { raison } from './Static'
+import { raison } from "./Static";
 
 function VoirPlus() {
   return (
     <>
       <ol>
         {raison.map((index) => {
-          return <li key={index._id}>{index.raison.toLowerCase()}</li>
+          return <li key={index.id}>{index.raison.toLowerCase()}</li>;
         })}
       </ol>
     </>
-  )
+  );
 }
 
-export default VoirPlus
+export default VoirPlus;

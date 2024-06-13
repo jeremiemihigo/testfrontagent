@@ -11,17 +11,14 @@ import {
   FormLabel,
   Grid,
 } from "@mui/material";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import React, { useEffect } from "react";
 import { CreateContexte } from "./Context";
-import DirectionSnackbar from "./Control/SnackBar";
 import TextArea from "./Control/TextArea";
-
 function UpdateDemande({ demande, close }) {
   const { socket } = React.useContext(CreateContexte);
   const [initial, setInitial] = React.useState();
   const [value, setValue] = React.useState("");
-  const [message, setMessage] = React.useState("");
   const [open, setOpen] = React.useState(true);
   const [generateLoc, setGenerateLoc] = React.useState(false);
   const [file, setImage] = React.useState();
@@ -30,7 +27,6 @@ function UpdateDemande({ demande, close }) {
   const [loadings, setLoadings] = React.useState(false);
 
   const handleChange = (e) => {
-    setMessage("");
     const { value, name } = e.target;
     setInitial({ ...initial, [name]: value });
   };
@@ -52,23 +48,31 @@ function UpdateDemande({ demande, close }) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
-      setMessage("Geolocation not supported");
       setGenerateLoc(false);
     }
   }
+  const [messageApi, contextHolder] = message.useMessage();
+  const successAlert = (texte, type) => {
+    messageApi.open({
+      type,
+      content: "" + texte,
+      duration: 5,
+    });
+  };
   const sendData = async (e) => {
     try {
       setLoadings(true);
       e.preventDefault();
       if (
-        !initial?.reference ||
-        !initial?.sat ||
-        !initial?.cell ||
-        !initial?.sector
+        !initial.reference ||
+        !initial.sat ||
+        !initial.cell ||
+        !initial.sector ||
+        value === "" ||
+        !initial.raison
       ) {
-        setMessage("Veuillez renseigner les champs");
+        successAlert("Veuillez renseigner les champs", "error");
       } else {
-        setMessage("");
         let data = {};
         data.file = file;
         data.longitude = location?.longitude;
@@ -94,8 +98,8 @@ function UpdateDemande({ demande, close }) {
         const form = document.getElementById("formDemande");
         const fileInput = form.querySelector('input[type="file"]');
         fileInput.value = "";
-
-        setMessage("Done : ");
+        setImage();
+        successAlert("Done", "success");
       }
 
       setLoadings(false);
@@ -131,10 +135,8 @@ function UpdateDemande({ demande, close }) {
 
   return (
     <>
+      {contextHolder}
       <form id="formDemande">
-        {message && (
-          <DirectionSnackbar message={message} open={open} setOpen={setOpen} />
-        )}
         <div style={{ marginBottom: "10px" }}>
           <Input
             placeholder="Code client"
