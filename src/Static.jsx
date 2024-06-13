@@ -5,7 +5,7 @@
 
 // const link = "https://bboxxother.onrender.com";
 // const link = "https://visite-menage.bboxxvm.com";
-const link = 'https://visite.bboxxvm.com';
+const link = "https://visite.bboxxvm.com";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_image = `${link}/bboxx/image`;

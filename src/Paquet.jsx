@@ -1,110 +1,157 @@
 /* eslint-disable react/prop-types */
-import axios from 'axios'
-import { lien, config } from './Static.jsx'
-import React from 'react'
-import { CircularProgress, Box } from '@mui/material'
-import Liste from './Liste.jsx'
-import './style.css'
-import { CreateContexte } from './Context.jsx'
-import { useNavigate } from 'react-router-dom'
+import { Grid, Paper, Typography } from "@mui/material";
+import axios from "axios";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { CreateContexte } from "./Context.jsx";
+import Liste from "./Liste.jsx";
+import { config, lien } from "./Static.jsx";
+import "./style.css";
 
 function Paquet() {
-  const [data, setData] = React.useState()
-  const [load, setLoad] = React.useState(false)
-  const [lotSelect, setLotSelect] = React.useState()
-  const navigation = useNavigate()
+  const [data, setData] = React.useState();
+  const [lotSelect, setLotSelect] = React.useState();
+  const navigation = useNavigate();
 
-  const { title, handleChangeTitle } = React.useContext(CreateContexte)
+  const { title, handleChangeTitle } = React.useContext(CreateContexte);
   const loading = async () => {
-    setLoad(true)
     try {
-      const response = await axios.get(`${lien}/paquet`, config)
+      const response = await axios.get(`${lien}/paquet`, config);
       if (response.status === 201) {
-        localStorage.removeItem('auth')
-        localStorage.removeItem('codeAgent')
-        localStorage.removeItem('codeZone')
-        localStorage.removeItem('nom')
-        localStorage.removeItem('shop')
-        navigation('/', { replace: true })
+        localStorage.removeItem("auth");
+        localStorage.removeItem("codeAgent");
+        localStorage.removeItem("codeZone");
+        localStorage.removeItem("nom");
+        localStorage.removeItem("shop");
+        navigation("/", { replace: true });
       } else {
-        setData(response.data)
-        setLoad(false)
+        setData(response.data);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   React.useEffect(() => {
-    loading()
+    loading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
   const choisirLot = (paquet, critere, texte) => {
-    handleChangeTitle(texte)
-    setLotSelect({ donner: paquet, critere })
-  }
+    handleChangeTitle(texte);
+    setLotSelect({ donner: paquet, critere });
+  };
   return (
     <div>
       <div className="titre">
         <img src="/bboxx.png" alt="bboxxPages" />
         <p> {title}</p>
       </div>
-      {load && (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <CircularProgress size={18} />
-        </Box>
+
+      {!lotSelect && (
+        <Grid container>
+          <Grid item lg={12} sx={12} sm={12} md={12} className="lotActive lot">
+            <Typography component="p">
+              {data ? data[0]._id : "Loading..."}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            md={6}
+            xs={6}
+            className="conforme"
+            onClick={() =>
+              data && choisirLot(data[0].valide, "valide", "Validées")
+            }
+          >
+            <Paper elevation={3} className="paper">
+              <Typography component="p" className="title">
+                Valides
+              </Typography>
+              {data ? (
+                <Typography component="p" className="content">
+                  {data[0].valide.length}
+                </Typography>
+              ) : (
+                <Typography component="p" className="loading">
+                  Loading...
+                </Typography>
+              )}
+              {data && data[0].valide.length > 0 ? (
+                <p style={{ fontSize: "9px" }}>Approved by support team</p>
+              ) : (
+                <p></p>
+              )}
+            </Paper>
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            md={6}
+            xs={6}
+            className="attente"
+            onClick={() =>
+              data && choisirLot(data[0].attente, "attentes", "En attente")
+            }
+          >
+            <Paper elevation={3} className="paper">
+              <Typography component="p" className="title">
+                En Attentes
+              </Typography>
+              {data ? (
+                <Typography component="p" className="content">
+                  {data[0].attente.length}
+                </Typography>
+              ) : (
+                <Typography component="p" className="loading">
+                  Loading...
+                </Typography>
+              )}
+              {data && data[0].attente.length > 0 ? (
+                <p style={{ fontSize: "9px", textAlign: "center" }}>
+                  Being verified
+                </p>
+              ) : (
+                <p style={{ fontSize: "9px", textAlign: "center" }}></p>
+              )}
+            </Paper>
+          </Grid>
+          <Grid
+            item
+            lg={12}
+            md={12}
+            xs={12}
+            className="nConforme"
+            onClick={() =>
+              data &&
+              choisirLot(data[0].nConforme, "nConformes", "Non conformes")
+            }
+          >
+            <Paper elevation={3} className="paper">
+              <Typography component="p" className="title">
+                Non conformes
+              </Typography>
+              {data ? (
+                <Typography component="p" className="content">
+                  {data[0].nConforme.length}
+                </Typography>
+              ) : (
+                <Typography component="p" className="loading">
+                  Loading...
+                </Typography>
+              )}
+              {data && (
+                <p style={{ fontSize: "9px", textAlign: "center" }}>
+                  It is possible to make changes
+                </p>
+              )}
+            </Paper>
+          </Grid>
+        </Grid>
       )}
-      <div className="liste">
-        {data &&
-          !lotSelect &&
-          data.map((index) => {
-            return (
-              index._id !== null && (
-                <div
-                  key={index._id}
-                  className={index.active ? 'lot lotActive' : 'lot'}
-                >
-                  <div className="titleLot">{index._id}</div>
-                  <div className="contentLot">
-                    <div
-                      onClick={() =>
-                        choisirLot(index.valide, 'valide', 'Validées')
-                      }
-                    >
-                      <p className="contentTitle">Valides</p>
-                      <p className="contentData">{index.valide.length}</p>
-                    </div>
-                    <div
-                      onClick={() =>
-                        choisirLot(index.attente, 'attentes', 'En attente')
-                      }
-                    >
-                      <p className="contentTitle">En attentes</p>
-                      <p className="contentData">{index.attente.length}</p>
-                    </div>
-                    <div
-                      onClick={() =>
-                        choisirLot(
-                          index.nConforme,
-                          'nConformes',
-                          'Non conformes',
-                        )
-                      }
-                    >
-                      <p className="contentTitle">Non conformes</p>
-                      <p className="contentData">{index.nConforme.length}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )
-          })}
-      </div>
 
       {lotSelect && <Liste lot={lotSelect} />}
-     
-     
     </div>
-  )
+  );
 }
 
-export default Paquet
+export default Paquet;
