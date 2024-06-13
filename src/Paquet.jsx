@@ -55,9 +55,8 @@ function Paquet() {
           </Grid>
           <Grid
             item
-            lg={6}
-            md={6}
-            xs={6}
+            md={12}
+            sm={12}
             className="conforme"
             onClick={() =>
               data && choisirLot(data[0].valide, "valide", "Validées")
@@ -85,9 +84,7 @@ function Paquet() {
           </Grid>
           <Grid
             item
-            lg={6}
             md={6}
-            xs={6}
             className="attente"
             onClick={() =>
               data && choisirLot(data[0].attente, "attentes", "En attente")
@@ -117,9 +114,6 @@ function Paquet() {
           </Grid>
           <Grid
             item
-            lg={12}
-            md={12}
-            xs={12}
             className="nConforme"
             onClick={() =>
               data &&
