@@ -97,27 +97,20 @@ function Demande() {
         data.sat = satSelect?.nom_SAT;
         data.numero = initial?.numero;
         data.commune = initial?.commune;
+        data.type = "new";
         socket.emit("sendData", data);
 
-        // const response = await axios.post(lien + "/demande", datas);
-
-        // if (response.data?._id) {
-        //   setLocation(null);
-        //   const form = document.getElementById("formDemande");
-        //   const fileInput = form.querySelector('input[type="file"]');
-        //   fileInput.value = "";
-        //   setInitial();
-        //   // setImage()
-        //   setAutre(false);
-        //   setRaisonSelect("");
-        //   setSatSelect("");
-        //   setValue("");
-        //   setMessage("Enregistrement effectuer : " + response.data.idDemande);
-        // }
-        // if (response.status === 201) {
-        //   setMessage(`${response.data} << connectez-vous de nouveau >>`);
-        //   localStorage.removeItem("auth");
-        // }
+        setLocation(null);
+        const form = document.getElementById("formDemande");
+        const fileInput = form.querySelector('input[type="file"]');
+        fileInput.value = "";
+        setInitial();
+        // setImage()
+        setAutre(false);
+        setRaisonSelect("");
+        setSatSelect("");
+        setValue("");
+        setMessage("Enregistrement effectuer ");
       }
       setLoadings(false);
     } catch (error) {
