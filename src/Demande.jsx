@@ -95,8 +95,8 @@ function Demande() {
         data.statut = value;
         data.raison = raison;
         data.sector = initial?.sector; //placeholder = Sector/constituency
-        data.cell = initial?.cell; //placeholder = Cell/Ward
-        data.reference = initial?.reference; //placeholder = Reference
+        data.cell = initial?.cell;
+        data.reference = initial?.reference;
         data.sat = satSelect?.nom_SAT;
         data.numero = initial?.numero;
         data.commune = initial?.commune;
@@ -126,7 +126,7 @@ function Demande() {
       }
     }
   };
-
+  console.log(socket);
   const returnValue = (champs) => {
     if (initial && initial["" + champs]) {
       return initial["" + champs];
