@@ -11,11 +11,12 @@ import {
   Grid,
 } from "@mui/material";
 import { Input, message } from "antd";
+import axios from "axios";
 import React from "react";
 import { CreateContexte } from "./Context";
 import AutoComplement from "./Control/AutoComplete";
 import TextArea from "./Control/TextArea";
-import { raison, sat } from "./Static";
+import { lien, raison, sat } from "./Static";
 // import UploadImage from './Image'
 
 function Demande() {
@@ -84,36 +85,43 @@ function Demande() {
         );
       } else {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
-        const data = {};
-        data.file = file;
-        data.longitude = location?.longitude;
-        data.latitude = location?.latitude;
-        data.altitude = location?.altitude;
-        data.codeAgent = localStorage.getItem("codeAgent");
-        data.codeZone = localStorage.getItem("codeZone");
-        data.codeclient = initial?.codeclient;
-        data.statut = value;
-        data.raison = raison;
-        data.sector = initial?.sector; //placeholder = Sector/constituency
-        data.cell = initial?.cell;
-        data.reference = initial?.reference;
-        data.sat = satSelect?.nom_SAT;
-        data.numero = initial?.numero;
-        data.commune = initial?.commune;
-        data.type = "new";
-        socket.emit("sendData", data);
 
-        setLocation(null);
-        const form = document.getElementById("formDemande");
-        const fileInput = form.querySelector('input[type="file"]');
-        fileInput.value = "";
-        setInitial();
-        setImage();
-        setAutre(false);
-        setRaisonSelect("");
-        setSatSelect("");
-        setValue("");
-        successAlert("Enregistrement effectuer ", "success");
+        const data = new FormData();
+        data.append("file", file);
+        data.append("longitude", location?.longitude);
+        data.append("latitude", location?.latitude);
+        data.append("altitude", location?.altitude);
+        data.append("codeAgent", localStorage.getItem("codeAgent"));
+        data.append("codeZone", localStorage.getItem("codeZone"));
+        data.append("idShop", localStorage.getItem("shop"));
+        data.append("codeclient", initial?.codeclient);
+        data.append("statut", value);
+        data.append("raison", raison);
+        data.append("sector", initial?.sector);
+        data.append("cell", initial?.cell);
+        data.append("reference", initial?.reference);
+        data.append("sat", satSelect?.nom_SAT);
+        data.append("numero", initial?.numero);
+        data.append("commune", initial?.commune);
+
+        const response = await axios.post(lien + "/demande", data);
+        console.log(response);
+
+        // socket.emit("sendData", data);
+
+        if (response.status === 200) {
+          setLocation(null);
+          const form = document.getElementById("formDemande");
+          const fileInput = form.querySelector('input[type="file"]');
+          fileInput.value = "";
+          setInitial();
+          setImage();
+          setAutre(false);
+          setRaisonSelect("");
+          setSatSelect("");
+          setValue("");
+          successAlert("Enregistrement effectuer ", "success");
+        }
       }
       setLoadings(false);
     } catch (error) {
