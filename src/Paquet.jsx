@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Grid, Paper, Typography } from "@mui/material";
-import { message } from "antd";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,17 +39,8 @@ function Paquet() {
     handleChangeTitle(texte);
     setLotSelect({ donner: paquet, critere });
   };
-  const [messageApi, contextHolder] = message.useMessage();
-  const successAlert = (texte, type) => {
-    messageApi.open({
-      type,
-      content: "" + texte,
-      duration: 5,
-    });
-  };
   return (
     <div>
-      {contextHolder}
       <div className="titre">
         <img src="/bboxx.png" alt="bboxxPages" />
         <p> {title}</p>
@@ -67,9 +57,8 @@ function Paquet() {
             item
             xs={6}
             className="conforme"
-            onClick={
-              () => successAlert("Service en maintenant", "error")
-              // data && choisirLot(data[0].valide, "valide", "Validées")
+            onClick={() =>
+              data && choisirLot(data[0].valide, "valide", "Validées")
             }
           >
             <Paper elevation={3} className="paper">
