@@ -77,10 +77,9 @@ export default function BasicTabs() {
     localStorage.removeItem("nom");
     localStorage.removeItem("codeAgent");
     localStorage.removeItem("codeZone");
-    localStorage.removeItem("shop");
     navigation("/", { replace: true });
   };
-
+  console.log(userConnect);
   return (
     <Box sx={{ width: "100%" }}>
       {userConnect && userConnect.first && <FirstLogin />}
@@ -122,15 +121,21 @@ export default function BasicTabs() {
             </Typography>
           </div>
         </Box>
-        <Box sx={{ margin: "0px", padding: "0px" }}>
-          <Typography sx={{ textAlign: "center", fontSize: "13px" }}>
-            Région : {userConnect?.region?.denomination} | Shop :{" "}
-            {userConnect?.shop?.shop}
-          </Typography>
-          <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
-            contact : {userConnect?.telephone}
-          </Typography>
-        </Box>
+        {userConnect && (
+          <Box sx={{ margin: "0px", padding: "0px" }}>
+            <Typography sx={{ textAlign: "center", fontSize: "13px" }}>
+              Région : {userConnect?.region?.denomination}{" "}
+              {["PO", "ZBM"].includes(userConnect?.fonction)
+                ? ""
+                : `Shop : ${
+                    userConnect?.shop.length === 1 && userConnect?.shop[0].shop
+                  }`}
+            </Typography>
+            <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
+              contact : {userConnect?.telephone} / {userConnect?.fonction}
+            </Typography>
+          </Box>
+        )}
       </div>
       <Box
         sx={{

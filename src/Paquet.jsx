@@ -48,7 +48,7 @@ function Paquet() {
 
       {!lotSelect && (
         <Grid container>
-          <Grid item lg={12} sx={12} sm={12} md={12} className="lotActive lot">
+          <Grid item lg={12} xs={12} sm={12} md={12} className="lotActive lot">
             <Typography component="p">
               {data ? data[0]._id : "Loading..."}
             </Typography>

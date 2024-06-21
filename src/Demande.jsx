@@ -93,7 +93,6 @@ function Demande() {
         data.append("altitude", location?.altitude);
         data.append("codeAgent", localStorage.getItem("codeAgent"));
         data.append("codeZone", localStorage.getItem("codeZone"));
-        data.append("idShop", localStorage.getItem("shop"));
         data.append("codeclient", initial?.codeclient);
         data.append("statut", value);
         data.append("raison", raison);
