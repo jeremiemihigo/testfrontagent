@@ -1,7 +1,7 @@
 .listeImage {
   display: flex;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(233, 233, 241);
+  background-color: rgb(214, 214, 232);
 }
 .listeImage > img {
   height: 50px;
