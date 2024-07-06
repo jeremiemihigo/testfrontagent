@@ -79,7 +79,6 @@ export default function BasicTabs() {
     localStorage.removeItem("codeZone");
     navigation("/", { replace: true });
   };
-  console.log(userConnect);
   return (
     <Box sx={{ width: "100%" }}>
       {userConnect && userConnect.first && <FirstLogin />}

@@ -91,7 +91,7 @@ function UpdateDemande({ demande, close }) {
           ? `${lien}/updateDemandeFile`
           : `${lien}/updateDemande`;
         console.log(linfile);
-        const response = await axios.put(linfile, datas);
+        const response = await axios.post(linfile, datas);
 
         if (response.data?._id) {
           setLocation(null);
