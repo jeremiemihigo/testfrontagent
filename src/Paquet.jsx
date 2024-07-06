@@ -140,27 +140,7 @@ function Paquet() {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={12} className="nConforme">
-            {data && data[0].attente.length > 0 && (
-              <Paper
-                elevation={3}
-                sx={{
-                  padding: "10px",
-                  textAlign: "justify",
-                  lineHeight: 2,
-                  fontSize: "12px",
-                }}
-              >
-                Hello {localStorage.getItem("nom")}! Nous avions un problème
-                d'enregistrement des images. Si vous avez des visites pour
-                lesquelles on vous a demandé de renvoyer la photo (et celles qui
-                sont en attente sans capture), vous pouvez renvoyer la photo en
-                cliquant sur le bouton modifier.
-                <hr />
-                Merci pour votre compréhension
-              </Paper>
-            )}
-          </Grid>
+         
         </Grid>
       )}
 
