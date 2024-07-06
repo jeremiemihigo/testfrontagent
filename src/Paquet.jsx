@@ -141,7 +141,7 @@ function Paquet() {
             </Paper>
           </Grid>
           <Grid item xs={12} className="nConforme">
-            {data[0].attente.length > 0 && (
+            {data && data[0].attente.length > 0 && (
               <Paper
                 elevation={3}
                 sx={{
