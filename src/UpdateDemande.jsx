@@ -90,15 +90,14 @@ function UpdateDemande({ demande, close }) {
         const linfile = file
           ? `${lien}/updateDemandeFile`
           : `${lien}/updateDemande`;
-        console.log(linfile);
         const response = await axios.post(linfile, datas);
 
-        if (response.data?._id) {
+        if (response.status === 200) {
           setLocation(null);
           close(false);
-          // const form = document.getElementById('formDemande')
-          // const fileInput = form.querySelector('input[type="file"]')
-          // fileInput.value = ''
+          const form = document.getElementById("formDemande");
+          const fileInput = form.querySelector('input[type="file"]');
+          fileInput.value = "";
 
           setMessage("Done : " + response.data.idDemande);
         }
