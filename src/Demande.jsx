@@ -16,7 +16,7 @@ import React from "react";
 import { CreateContexte } from "./Context";
 import AutoComplement from "./Control/AutoComplete";
 import TextArea from "./Control/TextArea";
-import { lien, raison, sat } from "./Static";
+import { config, lien, raison, sat } from "./Static";
 // import UploadImage from './Image'
 
 function Demande() {
@@ -103,8 +103,7 @@ function Demande() {
         data.append("numero", initial?.numero);
         data.append("commune", initial?.commune);
 
-        const response = await axios.post(lien + "/demande", data);
-        console.log(response);
+        const response = await axios.post(lien + "/demande", data, config);
 
         // socket.emit("sendData", data);
 
@@ -120,6 +119,13 @@ function Demande() {
           setSatSelect("");
           setValue("");
           successAlert("Enregistrement effectuer ", "success");
+        } else {
+          successAlert(
+            "" +
+              response.data +
+              " (si l'erreur persiste veuillez-vous connecter de nouveau)",
+            "error"
+          );
         }
       }
       setLoadings(false);
