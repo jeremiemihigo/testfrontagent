@@ -90,7 +90,7 @@ function UpdateDemande({ demande, close }) {
         const linfile = file
           ? `${lien}/updateDemandeFile`
           : `${lien}/updateDemande`;
-        const response = await axios.post(linfile, datas);
+        const response = await axios.put(linfile, datas);
 
         if (response.status === 200) {
           setLocation(null);

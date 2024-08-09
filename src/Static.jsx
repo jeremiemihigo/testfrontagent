@@ -10,6 +10,7 @@ const link = "https://visite.bboxxvm.com";
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
 export const lien_image = `${link}/bboxx/image`;
+export const lien_issue = `${link}/issue`;
 export const dateFrancais = (donner) => {
   let dates = new Date(donner);
   return `${dates.getDate()}/${dates.getMonth() + 1}/${dates.getFullYear()}`;
@@ -22,405 +23,109 @@ export const config = {
 };
 export const raison = [
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c6b",
-    },
-    raison: "En attente de swap de CU",
+    raison: "Le client n'a pas de probleme",
     id: 1,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.519Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.519Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c6c",
-    },
+    raison: "En attente de swap de CU",
+    id: 100,
+  },
+  {
     raison:
       "En attente de swap des autres items (torche, radio, TV, panneau,…)",
     id: 2,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c6d",
-    },
     raison: "zone insecurisée",
     id: 3,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c6e",
-    },
     raison: "absent à la maison",
     id: 4,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c6f",
-    },
     raison: "Promesse de payement",
     id: 5,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.520Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c70",
-    },
     raison: "cas de déménagement",
     id: 6,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c71",
-    },
     raison: "En cours de repossession",
     id: 7,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c72",
-    },
     raison: "introuvable",
     id: 8,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c73",
-    },
     raison: "cas de resistance",
     id: 9,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c74",
-    },
     raison: "Resistance",
     id: 10,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c75",
-    },
     raison: "Victime de vol",
     id: 11,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.521Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c76",
-    },
     raison: "Victime d'inendie",
     id: 12,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c77",
-    },
     raison: "reactivation non utilisée",
     id: 13,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c78",
-    },
     raison: "Pretend avoir fini",
     id: 14,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c79",
-    },
     raison: "Probleme technique",
     id: 15,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7a",
-    },
     raison: "Client en voyage",
     id: 16,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7b",
-    },
     raison: "Maison fermee",
     id: 17,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.522Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7c",
-    },
     raison: "Probleme financier",
     id: 18,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7d",
-    },
     raison: "Deja repossedee par notre agent",
     id: 19,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7e",
-    },
     raison: "Malade",
     id: 20,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c7f",
-    },
     raison: "Demande la repossession",
     id: 21,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c80",
-    },
     raison: "Le client a laissé les matériels à quelqu'un d'autre",
     id: 22,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c81",
-    },
     raison: "Demenager sans signaler",
     id: 23,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c82",
-    },
     raison: "Utilise une autre source d'énergie",
     id: 24,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.523Z",
-    },
   },
   {
-    _id: {
-      $oid: "6638db3b80ff24613baf6c83",
-    },
     raison: "Le client veut déménager",
     id: 25,
-    savedBy: "j.mihigo",
-    type: "nonTechnique",
-    __v: 0,
-    createdAt: {
-      $date: "2024-05-06T13:29:31.524Z",
-    },
-    updatedAt: {
-      $date: "2024-05-06T13:29:31.524Z",
-    },
   },
 ];
 export const sat = [
@@ -2163,3 +1868,65 @@ export const sat = [
     __v: 0,
   },
 ];
+export const returnDelai = async (statut, deedline, today) => {
+  if (deedline && today) {
+    const a = _.filter(deedline, { plainte: statut });
+    if (a.length > 0) {
+      //si la plainte existe je cherche le jour
+      let critere = a[0].critere.filter((x) => x.jour === today.day_of_week);
+      if (critere.length > 0) {
+        //si le critere existe
+        let debutHeure = critere[0].debut.split(":")[0];
+        let debutMinutes = critere[0].debut.split(":")[1];
+        if (
+          new Date(today.datetime).getHours() > parseInt(debutHeure) ||
+          (new Date(today.datetime).getHours() === parseInt(debutHeure) &&
+            new Date(today.datetime).getMinutes() >= parseInt(debutMinutes))
+        ) {
+          return critere[0]?.delai;
+        } else {
+          return a[0]?.defaut;
+        }
+      } else {
+        return a[0]?.defaut;
+      }
+    } else {
+      return 0;
+    }
+  }
+};
+export const formatTime = (seconds) => {
+  if (seconds <= 0) {
+    return (
+      <p
+        style={{
+          padding: "1px 10px",
+          borderRadius: "4px",
+          fontSize: "10px",
+          margin: "0px",
+          background: "red",
+          color: "wheat",
+        }}
+      >
+        OUT SLA
+      </p>
+    );
+  } else {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return (
+      <p
+        style={{
+          width: "100%",
+          borderRadius: "4px",
+          fontSize: "12px",
+          textAlign: "center",
+          margin: "0px",
+          padding: "10px",
+          background: "green",
+          color: "white",
+        }}
+      >{`${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`}</p>
+    );
+  }
+};

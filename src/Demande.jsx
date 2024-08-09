@@ -13,14 +13,13 @@ import {
 import { Input, message } from "antd";
 import axios from "axios";
 import React from "react";
-import { CreateContexte } from "./Context";
 import AutoComplement from "./Control/AutoComplete";
 import TextArea from "./Control/TextArea";
+import Header from "./Header";
 import { config, lien, raison, sat } from "./Static";
 // import UploadImage from './Image'
 
 function Demande() {
-  const { title, socket } = React.useContext(CreateContexte);
   const [initial, setInitial] = React.useState();
   const [value, setValue] = React.useState("");
   const [generateLoc, setGenerateLoc] = React.useState(false);
@@ -102,6 +101,7 @@ function Demande() {
         data.append("sat", satSelect?.nom_SAT);
         data.append("numero", initial?.numero);
         data.append("commune", initial?.commune);
+        data.append("jours", initial?.jours);
 
         const response = await axios.post(lien + "/demande", data, config);
 
@@ -139,7 +139,6 @@ function Demande() {
       }
     }
   };
-  console.log(socket);
   const returnValue = (champs) => {
     if (initial && initial["" + champs]) {
       return initial["" + champs];
@@ -156,200 +155,220 @@ function Demande() {
 
   return (
     <>
-      <div className="titre">
-        <img src="/bboxx.png" alt="bboxxPages" />
-        <p> {title}</p>
-      </div>
-      <form id="formDemande">
-        {contextHolder}
+      <Header />
+      <div style={{ padding: "15px" }}>
+        <div className="titre">
+          <img src="/bboxx.png" alt="bboxxPages" />
+          <p> Demande</p>
+        </div>
+        <form id="formDemande">
+          {contextHolder}
 
-        <div style={{ marginBottom: "10px" }}>
-          <Input
-            placeholder="Code client"
-            name="codeclient"
-            value={returnValue("codeclient")}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div style={{ marginBottom: "11px" }}>
-          <Input
-            required
-            name="commune"
-            value={returnValue("commune")}
-            onChange={(e) => handleChange(e)}
-            placeholder="Commune *"
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <Input
-            required
-            name="sector"
-            value={returnValue("sector")}
-            onChange={(e) => handleChange(e)}
-            placeholder="Quartier *"
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <Input
-            name="cell"
-            value={returnValue("cell")}
-            onChange={(e) => handleChange(e)}
-            placeholder="Avenue *"
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <Input
-            name="reference"
-            value={returnValue("reference")}
-            onChange={(e) => handleChange(e)}
-            placeholder="Référence *"
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <AutoComplement
-            value={satSelect}
-            setValue={setSatSelect}
-            options={sat}
-            title="Selectionnez le sat du client *"
-            propr="nom_SAT"
-          />
-        </div>
-
-        <div style={{ marginBottom: "10px" }}>
-          {/* <UploadImage setFile={setFichier} /> */}
-
-          <input
-            onChange={(event) => {
-              const file = event.target.files[0];
-              setImage(file);
-            }}
-            type="file"
-            accept=".png, .jpg, .jpeg"
-          />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <Box sx={{ display: "flex" }}>
-            <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-              <FormGroup>
-                <FormControlLabel
-                  onClick={() => setValue("allumer")}
-                  control={
-                    <Checkbox checked={value === "allumer"} name="allumer" />
-                  }
-                  label="Allumé"
-                />
-              </FormGroup>
-            </FormControl>
-            <FormControl component="fieldset" sx={{ m: 1 }} variant="standard">
-              <FormLabel component="legend"></FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  onClick={() => setValue("eteint")}
-                  control={
-                    <Checkbox checked={value === "eteint"} name="eteint" />
-                  }
-                  label="Eteint"
-                />
-              </FormGroup>
-            </FormControl>
-          </Box>
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          {autre ? (
-            <TextArea
-              setValue={setRaisonRwrite}
-              value={raisonRwrite}
-              placeholder="Mentionnez le feedback *"
+          <div style={{ marginBottom: "10px" }}>
+            <Input
+              placeholder="Code client"
+              name="codeclient"
+              value={returnValue("codeclient")}
+              onChange={(e) => handleChange(e)}
             />
-          ) : (
+          </div>
+          <div style={{ marginBottom: "11px" }}>
+            <Input
+              required
+              name="commune"
+              value={returnValue("commune")}
+              onChange={(e) => handleChange(e)}
+              placeholder="Commune *"
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Input
+              required
+              name="sector"
+              value={returnValue("sector")}
+              onChange={(e) => handleChange(e)}
+              placeholder="Quartier *"
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Input
+              name="cell"
+              value={returnValue("cell")}
+              onChange={(e) => handleChange(e)}
+              placeholder="Avenue *"
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Input
+              name="reference"
+              value={returnValue("reference")}
+              onChange={(e) => handleChange(e)}
+              placeholder="Référence *"
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
             <AutoComplement
-              value={raisonSelect}
-              setValue={setRaisonSelect}
-              options={raison}
-              title="Selectionnez le feedback *"
-              propr="raison"
+              value={satSelect}
+              setValue={setSatSelect}
+              options={sat}
+              title="Selectionnez le sat du client *"
+              propr="nom_SAT"
             />
+          </div>
+
+          <div style={{ marginBottom: "10px" }}>
+            {/* <UploadImage setFile={setFichier} /> */}
+
+            <input
+              onChange={(event) => {
+                const file = event.target.files[0];
+                setImage(file);
+              }}
+              type="file"
+              accept=".png, .jpg, .jpeg"
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Box sx={{ display: "flex" }}>
+              <FormControl
+                sx={{ m: 1 }}
+                component="fieldset"
+                variant="standard"
+              >
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setValue("allumer")}
+                    control={
+                      <Checkbox checked={value === "allumer"} name="allumer" />
+                    }
+                    label="Allumé"
+                  />
+                </FormGroup>
+              </FormControl>
+              <FormControl
+                component="fieldset"
+                sx={{ m: 1 }}
+                variant="standard"
+              >
+                <FormLabel component="legend"></FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setValue("eteint")}
+                    control={
+                      <Checkbox checked={value === "eteint"} name="eteint" />
+                    }
+                    label="Eteint"
+                  />
+                </FormGroup>
+              </FormControl>
+            </Box>
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            {autre ? (
+              <TextArea
+                setValue={setRaisonRwrite}
+                value={raisonRwrite}
+                placeholder="Autres *"
+              />
+            ) : (
+              <AutoComplement
+                value={raisonSelect}
+                setValue={setRaisonSelect}
+                options={raison}
+                title="Selectionnez le feedback *"
+                propr="raison"
+              />
+            )}
+
+            <p
+              onClick={() => changeRaison()}
+              style={{
+                fontSize: "12px",
+                textAlign: "right",
+                cursor: "pointer",
+                color: "blue",
+                fontWeight: "bolder",
+                margin: "5px",
+              }}
+            >
+              {autre ? "Choisir la selection du feedback" : "Autre feedback"}
+            </p>
+          </div>
+          {raisonSelect && raisonSelect?.id === 5 && (
+            <div style={{ marginTop: "10px" }}>
+              <Input
+                value={returnValue("jours")}
+                placeholder="Le client va payer dans combien de jours ?"
+                name="jours"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
           )}
 
-          <p
-            onClick={() => changeRaison()}
+          <div style={{ marginTop: "10px" }}>
+            <Input
+              value={returnValue("numero")}
+              placeholder="Numero joignable du client"
+              name="numero"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div
             style={{
-              fontSize: "12px",
-              textAlign: "right",
-              cursor: "pointer",
-              color: "blue",
-              fontWeight: "bolder",
-              margin: "5px",
+              textAlign: "center",
+              backgroundColor: "#dedede",
+              borderRadius: "20px",
+              padding: "10px",
+              margin: "10px",
             }}
           >
-            {autre
-              ? "Choisir la selection du feedback"
-              : "Mentionnez le feedback"}
-          </p>
-        </div>
-        <div style={{ marginTop: "10px" }}>
-          <Input
-            value={returnValue("numero")}
-            placeholder="Numero joignable du client"
-            name="numero"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            backgroundColor: "#dedede",
-            borderRadius: "20px",
-            padding: "10px",
-            margin: "10px",
-          }}
-        >
-          <p>
-            long : {location?.longitude}
-            {" lat : "}
-            {location?.latitude}
-          </p>
-        </div>
-        <Grid container>
-          <Grid item xs={6}>
-            <Button
-              color="secondary"
-              variant="contained"
-              disabled={generateLoc}
-              fullWidth
-              onClick={handleLocationClick}
-            >
-              <Language fontSize="small" />
-              <span style={{ marginLeft: "10px" }}>
-                {generateLoc && "Patientez..."}
-              </span>
-            </Button>
+            <p>
+              long : {location?.longitude}
+              {" lat : "}
+              {location?.latitude}
+            </p>
+          </div>
+          <Grid container>
+            <Grid item xs={6}>
+              <Button
+                color="secondary"
+                variant="contained"
+                disabled={generateLoc}
+                fullWidth
+                onClick={handleLocationClick}
+              >
+                <Language fontSize="small" />
+                <span style={{ marginLeft: "10px" }}>
+                  {generateLoc && "Patientez..."}
+                </span>
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                sx={{ marginLeft: "10px" }}
+                fullWidth
+                className="primary"
+                variant="contained"
+                onClick={(e) => sendData(e)}
+                disabled={loadings}
+              >
+                <Send fontSize="small" />
+                <span style={{ marginLeft: "10px" }}>
+                  {loadings && "Patientez..."}
+                </span>
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Button
-              sx={{ marginLeft: "10px" }}
-              fullWidth
-              className="primary"
-              variant="contained"
-              onClick={(e) => sendData(e)}
-              disabled={loadings}
-            >
-              <Send fontSize="small" />
-              <span style={{ marginLeft: "10px" }}>
-                {loadings && "Patientez..."}
-              </span>
-            </Button>
-          </Grid>
-        </Grid>
 
-        <div style={{ marginTop: "10px" }}>
-          <p>
-            Rassurez-vous que vous etes chez le client pour une meilleure
-            géolocalisation
-          </p>
-        </div>
-        <div></div>
-      </form>
+          <div style={{ marginTop: "10px" }}>
+            <p>
+              Rassurez-vous que vous etes chez le client pour une meilleure
+              géolocalisation
+            </p>
+          </div>
+          <div></div>
+        </form>
+      </div>
     </>
   );
 }
