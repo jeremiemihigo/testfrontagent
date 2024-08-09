@@ -84,6 +84,7 @@ function Demande() {
         );
       } else {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
+        let days = initial?.jours ? initial?.jours : 0;
 
         const data = new FormData();
         data.append("file", file);
@@ -101,7 +102,7 @@ function Demande() {
         data.append("sat", satSelect?.nom_SAT);
         data.append("numero", initial?.numero);
         data.append("commune", initial?.commune);
-        data.append("jours", initial?.jours);
+        data.append("jours", days);
 
         const response = await axios.post(lien + "/demande", data, config);
 
