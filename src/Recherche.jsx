@@ -1,5 +1,5 @@
 import { Search } from "@mui/icons-material";
-import { Button, Card, FormControl, Grid, OutlinedInput } from "@mui/material";
+import { Button, FormControl, Grid, OutlinedInput } from "@mui/material";
 import { message } from "antd";
 import axios from "axios";
 import _ from "lodash";
@@ -120,17 +120,18 @@ function Recherche() {
                       return (
                         <React.Fragment key={cle + 1}>
                           <Grid item lg={12}>
-                            <Card
+                            <div
                               className="reponseClasse"
                               variant="outlined"
-                              sx={{ padding: "5px" }}
+                              sx={{ padding: "5px", minWidth: "100%" }}
                             >
                               <p>
                                 <span style={{ fontWeight: "bolder" }}>
-                                  Statut du client :{" "}
-                                </span>{" "}
-                                {index.demande.statut};
+                                  customer_name :
+                                </span>
+                                {" " + index?.nomClient}
                               </p>
+
                               <p>
                                 <span style={{ fontWeight: "bolder" }}>
                                   Feedback :{" "}
@@ -158,7 +159,9 @@ function Recherche() {
                                   : {index.demande?.numero}
                                 </p>
                               )}
-
+                              <p style={{ fontWeight: "bolder" }}>
+                                C.U : {index?.codeCu}
+                              </p>
                               <p className="retard">
                                 <span style={{ fontWeight: "bolder" }}>
                                   Date
@@ -167,19 +170,19 @@ function Recherche() {
                                   "DD/MM/YYYY hh:mm"
                                 )}
                               </p>
-                            </Card>
+                            </div>
                             <div
                               className="reponseClasse"
                               style={{ display: "flex" }}
                             >
                               <p>
-                                stat.client :{" "}
+                                customer :{" "}
                                 <span style={{ fontWeight: "bolder" }}>
                                   {index.clientStatut}
                                 </span>
                               </p>
                               <p>
-                                stat.payment :{" "}
+                                payment :{" "}
                                 <span style={{ fontWeight: "bolder" }}>
                                   {index.PayementStatut}
                                 </span>

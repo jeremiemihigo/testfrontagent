@@ -5,7 +5,7 @@
 
 // const link = "https://bboxxother.onrender.com";
 const link = "https://visite.bboxxvm.com";
-// const link = "http://localhost:40002";
+//const link = "http://localhost:40002";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;

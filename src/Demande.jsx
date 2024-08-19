@@ -121,12 +121,7 @@ function Demande() {
           setValue("");
           successAlert("Enregistrement effectuer ", "success");
         } else {
-          successAlert(
-            "" +
-              response.data +
-              " (si l'erreur persiste veuillez-vous connecter de nouveau)",
-            "error"
-          );
+          successAlert("" + response.data, "error");
         }
       }
       setLoadings(false);

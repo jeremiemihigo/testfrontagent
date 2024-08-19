@@ -71,3 +71,7 @@
   margin: 5px;
   padding: 10px;
 }
+.value {
+  text-align: center;
+  font-weight: bolder !important;
+}

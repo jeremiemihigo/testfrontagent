@@ -23,7 +23,7 @@ function Login() {
   };
   React.useEffect(() => {
     if (localStorage.getItem("auth")) {
-      navigation("/operation", { replace: true });
+      navigation("/paquet", { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -45,7 +45,10 @@ function Login() {
         setSending(false);
       }
     } catch (error) {
-      console.log(error);
+      if (error.code === "ERR_NETWORK") {
+        setMessage(error.message);
+        setSending(false);
+      }
       setSending(false);
     }
   };
@@ -58,7 +61,7 @@ function Login() {
         transition={{ type: "spring", delay: 0.5, duration: 5, stiffness: 80 }}
       >
         <Paper>
-          <img src="/bboxx.png" alt="bboxx" className="imageLogin" />
+          <img src="/css.jpg" alt="bboxx" className="imageLogin" />
           <div className="screen__content">
             <form className="login">
               {message && (
@@ -83,6 +86,7 @@ function Login() {
               <Button
                 variant="contained"
                 fullWidth
+                disabled={sending}
                 onClick={(e) => onsubmit(e)}
               >
                 <span className="button__text" style={{ textAlign: "center" }}>
