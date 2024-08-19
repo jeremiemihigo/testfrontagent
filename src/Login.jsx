@@ -23,7 +23,7 @@ function Login() {
   };
   React.useEffect(() => {
     if (localStorage.getItem("auth")) {
-      navigation("/paquet", { replace: true });
+      navigation("/operation", { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
