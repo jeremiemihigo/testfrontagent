@@ -4,9 +4,7 @@
 // export const lien_image = "http://109.199.122.241:5000/bboxx/image";
 
 // const link = "https://bboxxother.onrender.com";
-//const link = "https://visite.bboxxvm.com";
-const link = "https://backendtestserver.onrender.com";
-//const link = "http://localhost:40002";
+const link = "https://visite.bboxxvm.com";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
