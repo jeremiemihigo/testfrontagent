@@ -86,11 +86,28 @@ function UpdateDemande({ demande, close }) {
         datas.append("numero", initial?.numero);
         datas.append("commune", initial?.commune);
         datas.append("id", demande._id);
+        const donner = {
+          codeclient: initial?.codeclient,
+          commune: initial?.commune,
+          numero: initial?.numero,
+          latitude: location?.latitude, // si la photo est prise dans l'appli ce champs est obligatoire sinon il n'est pas obligatoire
+          altitude: location?.altitude, // si la photo est prise dans l'appli ce champs est obligatoire sinon il n'est pas obligatoire
+          longitude: location?.longitude, // si la photo est prise dans l'appli ce champs est obligatoire sinon il n'est pas obligatoire
+          statut: value,
+          raison: initial?.raison,
+          sector: initial?.sector, //placeholder = Sector/constituency
+          cell: initial?.cell, //placeholder = Cell/Ward
+          reference: initial?.reference, //placeholder = Reference
+          sat: initial?.sat,
+          id: demande._id, //placeholder = SAT
+        };
 
         const linfile = file
           ? `${lien}/updateDemandeFile`
           : `${lien}/updateDemande`;
-        const response = await axios.put(linfile, datas);
+
+        let datasend = file ? datas : donner;
+        const response = await axios.put(linfile, datasend);
 
         if (response.status === 200) {
           setLocation(null);
