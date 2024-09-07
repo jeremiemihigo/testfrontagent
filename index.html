@@ -6,26 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Call_center_support</title>
+    <style>
+      @media only screen and (min-width: 600px) {
+        #root {
+          display: none;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        #condition {
+          display: none;
+        }
+      }
+    </style>
   </head>
-  <style>
-    @media only screen and (min-width: 600px) {
-      #root {
-        display: none;
-      }
-    }
-    @media screen and (max-width: 600px) {
-      #condition {
-        display: none;
-      }
-    }
-  </style>
   <body>
-    <div id="root" translate="no"></div>
+    <div id="root"></div>
     <div id="condition" translate="no">
       <p style="text-align: center; color: red">
         Veuillez utiliser le telephone svp !
       </p>
     </div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
