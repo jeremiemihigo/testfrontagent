@@ -104,10 +104,22 @@ export default function BasicTabs() {
                         badgeContent={communication ? communication.length : 0}
                         color="primary"
                       >
-                        <Typography>{index.title}</Typography>
+                        <Typography
+                          sx={{ fontSize: "12px" }}
+                          component="p"
+                          noWrap
+                        >
+                          {index.title}
+                        </Typography>
                       </Badge>
                     ) : (
-                      <Typography>{index.title}</Typography>
+                      <Typography
+                        sx={{ fontSize: "12px" }}
+                        component="p"
+                        noWrap
+                      >
+                        {index.title}
+                      </Typography>
                     )}
                   </div>
                 </Paper>
@@ -134,7 +146,9 @@ export default function BasicTabs() {
                   >
                     <ConstructionIcon fontSize="small" />
                   </div>
-                  <Typography>Actions Synchro</Typography>
+                  <Typography sx={{ fontSize: "12px" }} component="p" noWrap>
+                    Actions Synchro
+                  </Typography>
                 </div>
               </Paper>
             </Grid>

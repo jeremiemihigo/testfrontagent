@@ -90,7 +90,6 @@ function Recherche() {
               disabled={loading}
             >
               <Search fontSize="small" />
-              Search
             </Button>
           </Grid>
         </Grid>
