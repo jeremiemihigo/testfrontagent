@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 import { config, lien } from "../Static/static";
 
 // Define the initial state type
@@ -24,7 +25,15 @@ export const ReadUser = createAsyncThunk(
     try {
       const response = await axios.get(`${lien}/user`, config);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      if (error.response.data === "jwt malformed") {
+        const navigation = useNavigate();
+        localStorage.removeItem("auth");
+        localStorage.removeItem("nom");
+        localStorage.removeItem("codeAgent");
+        localStorage.removeItem("codeZone");
+        navigation("/", { replace: true });
+      }
       const axiosError = error as AxiosError;
       return rejectWithValue(axiosError.response?.data);
     }

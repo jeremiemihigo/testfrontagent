@@ -23,9 +23,8 @@ function Documentation() {
 
       <div style={{ padding: "10px" }}>
         <Logo text="Messages" />
-
         {communiquer &&
-          communiquer.map((index) => {
+          communiquer?.map((index: ICommuniquer) => {
             return (
               <Paper
                 key={index._id}

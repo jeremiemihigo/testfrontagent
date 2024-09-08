@@ -1,21 +1,31 @@
 import { Logout } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../Interface/IUser";
 
 function Header() {
   const userConnect: IUser = useSelector((state: any) => state.user?.user);
+
   const navigation = useNavigate();
-  const deconnection = (e: any) => {
-    e.preventDefault();
+  const deconnection = (e?: any) => {
+    e?.preventDefault();
     localStorage.removeItem("auth");
     localStorage.removeItem("nom");
     localStorage.removeItem("codeAgent");
     localStorage.removeItem("codeZone");
     navigation("/", { replace: true });
   };
+
+  const user: string = useSelector((state: any) => state.user.readUser);
+
+  React.useEffect(() => {
+    if (user === "rejected") {
+      deconnection();
+    }
+  }, [user]);
 
   return (
     <div
