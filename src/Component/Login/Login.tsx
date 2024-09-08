@@ -45,7 +45,6 @@ function Login() {
         localStorage.setItem("codeZone", response.data.codeZone);
         localStorage.setItem("nom", response.data.nom);
         window.location.replace("/operation");
-        setSending(false);
       } else {
         setMessage("Incorrect");
         setSending(false);
