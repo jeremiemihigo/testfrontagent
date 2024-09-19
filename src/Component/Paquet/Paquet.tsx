@@ -15,6 +15,7 @@ interface TDonner {
   attente: IDemande[];
   nConforme: IDemande[];
   valide: IDemande[];
+  followup: IDemande[];
   _id: string;
 }
 
@@ -88,8 +89,8 @@ function Paquet() {
                       }}
                     >
                       <Grid sx={{ marginRight: "10px" }}>
-                        <Typography component="p" className="title">
-                          Visites
+                        <Typography noWrap component="p" className="title">
+                          Visites (visits)
                         </Typography>
                         <Typography component="p" className="value">
                           {
@@ -99,24 +100,16 @@ function Paquet() {
                           }
                         </Typography>
                       </Grid>
-                      <Grid sx={{ marginLeft: "10px" }}>
-                        <Typography component="p" className="title">
-                          Follow_up
-                        </Typography>
-                        <Typography component="p" className="value">
-                          {
-                            data.valide.filter(
-                              (x: any) => x.reponse[0].followup
-                            ).length
-                          }
-                        </Typography>
-                      </Grid>
                     </Grid>
 
                     {data && data.valide.length > 0 ? (
-                      <p style={{ fontSize: "9px", textAlign: "center" }}>
+                      <Typography
+                        component="p"
+                        noWrap
+                        style={{ fontSize: "9px", textAlign: "center" }}
+                      >
                         Approved by support team
-                      </p>
+                      </Typography>
                     ) : (
                       <p></p>
                     )}
@@ -129,8 +122,8 @@ function Paquet() {
                   onClick={() => data && choisirLot(data.attente, "attentes")}
                 >
                   <Paper elevation={3} className="paper">
-                    <Typography component="p" className="title">
-                      En Attentes
+                    <Typography noWrap component="p" className="title">
+                      En Attentes (Waiting)
                     </Typography>
                     {data ? (
                       <Typography component="p" className="content">
@@ -154,15 +147,15 @@ function Paquet() {
                 </Grid>
                 <Grid
                   item
-                  xs={12}
+                  xs={6}
                   className="nConforme"
                   onClick={() =>
                     data && choisirLot(data.nConforme, "nConformes")
                   }
                 >
                   <Paper elevation={3} className="paper">
-                    <Typography component="p" className="title">
-                      Non conformes
+                    <Typography noWrap component="p" className="title">
+                      Non conformes (Non-compliant)
                     </Typography>
                     {data ? (
                       <Typography component="p" className="content">
@@ -174,9 +167,45 @@ function Paquet() {
                       </Typography>
                     )}
                     {data && (
-                      <p style={{ fontSize: "9px", textAlign: "center" }}>
+                      <Typography
+                        noWrap
+                        component="p"
+                        style={{ fontSize: "9px", textAlign: "center" }}
+                      >
                         It is possible to make changes
-                      </p>
+                      </Typography>
+                    )}
+                  </Paper>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  className="nConforme"
+                  onClick={() =>
+                    data && choisirLot(data.followup, "nConformes")
+                  }
+                >
+                  <Paper elevation={3} className="paper">
+                    <Typography noWrap component="p" className="title">
+                      Suivi (Follow up)
+                    </Typography>
+                    {data ? (
+                      <Typography component="p" className="content">
+                        {data.followup.length}
+                      </Typography>
+                    ) : (
+                      <Typography component="p" className="loading">
+                        Loading...
+                      </Typography>
+                    )}
+                    {data && data.followup.length > 0 && (
+                      <Typography
+                        component="p"
+                        noWrap
+                        style={{ fontSize: "9px", textAlign: "center" }}
+                      >
+                        We are waiting for the followup
+                      </Typography>
                     )}
                   </Paper>
                 </Grid>

@@ -82,15 +82,6 @@ function Liste(props: Props) {
                   >
                     {moment(index.reponse[0].createdAt).fromNow()}
                   </p>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      marginTop: "5px",
-                      textAlign: "center",
-                    }}
-                  >
-                    {index.reponse[0].followup ? "Followup" : "visit"}
-                  </p>
                 </div>
               </Paper>
               <>

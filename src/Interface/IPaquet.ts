@@ -4,6 +4,12 @@ type TDemandeur = {
   nom: string;
 };
 
+type TypeFollowup = {
+  followup: string;
+  dateFollowup?: Date;
+  codeclient?: string;
+};
+
 export interface IReponse {
   codeclient: string;
   codeCu?: string;
@@ -66,4 +72,5 @@ export interface IDemande {
   conversation: IConversation[];
   coordonnes: ICoordonnee;
   reponse: IReponse[];
+  typeVisit: TypeFollowup;
 }

@@ -67,30 +67,48 @@ function NonConforme(props: Props) {
                   </Typography>
                 </div>
                 <div className="itemButtons">
-                  {index.reponse.length <= 0 ? (
-                    <div onClick={() => updateDemande(index)}>
-                      <Edit fontSize="small" /> <span>Modifier</span>
-                    </div>
-                  ) : (
-                    <div>
-                      <span style={{ color: "green", fontWeight: "bolder" }}>
-                        Done
-                      </span>
-                    </div>
-                  )}
+                  <div onClick={() => updateDemande(index)}>
+                    <Edit fontSize="small" /> <span>Modifier</span>
+                  </div>
                 </div>
-                {index.double && (
-                  <div style={{ margin: "0px", background: "#4684D3" }}>
-                    <p
+                {index?.typeVisit?.followup === "followup" ||
+                  (index.reponse[0].followup && (
+                    <div
                       style={{
-                        fontSize: "12px",
-                        color: "#FFFFFF",
-                        textAlign: "center",
+                        margin: "0px",
+                        background: "#4684D3",
+                        padding: "10px",
+                        borderRadius: "10px",
                       }}
                     >
-                      Cette visite est déjà dans tes visites validées
-                    </p>
-                  </div>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "1.2rem",
+                        }}
+                      >
+                        {`
+                      Ce client a déjà été visité par vous en date du ${moment(
+                        index?.typeVisit?.dateFollowup
+                      ).format(
+                        "DD-MM-YYYY"
+                      )} Cette visite sera considérée comme followup, et nous comptons sur vous pour mener une action sur lui
+                      `}
+                      </p>
+                    </div>
+                  ))}
+                {index.double && (
+                  <p
+                    style={{
+                      background: "rgb(0, 169, 224)",
+                      fontSize: "12px",
+                      padding: "10px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    Tu as deja envoyé cette visite {index.double.valeur}; tu
+                    peux verifier dans tes visites conformes
+                  </p>
                 )}
                 <div>
                   {index.conversation.length > 0 &&
