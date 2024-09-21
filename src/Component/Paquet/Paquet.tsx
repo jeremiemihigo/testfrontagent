@@ -53,6 +53,7 @@ function Paquet() {
   const choisirLot = (paquet: IDemande[], critere: string) => {
     setLotSelect({ donner: paquet, critere });
   };
+  console.log(data);
   return (
     <>
       <div style={{ padding: "15px" }}>

@@ -72,7 +72,7 @@ function NonConforme(props: Props) {
                   </div>
                 </div>
                 {index?.typeVisit?.followup === "followup" ||
-                  (index.reponse[0].followup && (
+                  (index?.reponse[0]?.followup && (
                     <div
                       style={{
                         margin: "0px",
